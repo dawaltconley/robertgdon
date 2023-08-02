@@ -134,6 +134,11 @@ export default defineConfig({
             name: 'description',
           },
           {
+            type: 'rich-text',
+            label: 'Bio',
+            name: 'bio',
+          },
+          {
             type: 'object',
             label: 'Contact Info',
             name: 'contact',
