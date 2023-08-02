@@ -1,0 +1,9 @@
+{
+  "diagnostic.displayByAle": true,
+  "suggest.noselect": true,
+  "tsserver.enable": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "tailwindCSS.enable": true,
+  "tailwindCSS.lint.invalidConfigPath": "ignore"
+}

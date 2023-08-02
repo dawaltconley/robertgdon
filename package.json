@@ -18,5 +18,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tinacms": "^1.5.17"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.11.0",
+    "stylelint": "^15.10.2",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-recommended-scss": "^12.0.0",
+    "stylelint-scss": "^5.0.1"
   }
 }
