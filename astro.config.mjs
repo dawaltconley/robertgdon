@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config'
 import path from 'node:path'
-import sass from 'sass'
-import mkTailwindFunctions from 'sass-tailwind-functions'
+import * as sass from 'sass'
 import react from '@astrojs/react'
+import mkTailwindFunctions from 'sass-tailwind-functions'
 import { sassLegacyFunctions } from './src/lib/node/image-config.ts'
 
 const tailwindFunctions = mkTailwindFunctions(
