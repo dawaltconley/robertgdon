@@ -1,5 +1,5 @@
 ---
-import { client } from '../../tina/__generated__/client'
+import { client } from '@tina/__generated__/client'
 const { data } = await client.queries.site({ relativePath: 'site.yml' })
 const { title, description } = data.site
 ---
