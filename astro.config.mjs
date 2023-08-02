@@ -3,6 +3,7 @@ import path from 'node:path'
 import sass from 'sass'
 import mkTailwindFunctions from 'sass-tailwind-functions'
 import react from '@astrojs/react'
+import { sassLegacyFunctions } from './src/lib/node/image-config.ts'
 
 const tailwindFunctions = mkTailwindFunctions(
   sass,
@@ -34,6 +35,7 @@ export default defineConfig({
           quietDeps: true,
           functions: {
             ...tailwindFunctions,
+            ...sassLegacyFunctions,
           },
         },
       },
