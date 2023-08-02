@@ -1,0 +1,19 @@
+$perspective: 2000px;
+
+@layer utilities {
+  .contains-3d {
+    -webkit-perspective: $perspective;
+    perspective: $perspective;
+
+    &-deep * {
+      @extend .contains-3d; // stylelint-disable-line scss/at-extend-no-missing-placeholder
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+  }
+
+  .render-3d {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+}

@@ -1,0 +1,204 @@
+$spacing-unit: 30px;
+$header-font-weight: 600;
+
+@debug theme('screens.mobile');
+
+@layer base {
+  body {
+    font-family: Raleway, HelveticaNeue, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: 'kern' 1;
+    -moz-font-feature-settings: 'kern' 1;
+    -o-font-feature-settings: 'kern' 1;
+    font-feature-settings: 'kern' 1;
+    font-kerning: normal;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  ul,
+  ol,
+  dl,
+  figure,
+  %vertical-rhythm {
+    margin-bottom: $spacing-unit;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /**
+ * Media
+ */
+  img {
+    max-width: 100%;
+    vertical-align: middle;
+  }
+
+  iframe {
+    border: 0;
+    overflow: hidden;
+  }
+
+  /**
+ * Figures
+ */
+
+  figure > img {
+    display: block;
+  }
+
+  figcaption {
+    font-size: smaller;
+  }
+
+  /**
+ * Lists
+ */
+
+  ul,
+  ol {
+    margin-left: ($spacing-unit * 2);
+
+    @media screen and (max-width: theme('screens.mobile')) {
+      margin-left: $spacing-unit;
+    }
+  }
+
+  li {
+    > ul,
+    > ol,
+    > p:only-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul.unlist {
+    margin-left: 0;
+    list-style: none;
+  }
+
+  /**
+ * Headings
+ */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: $header-font-weight;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  h2 {
+    font-size: 1.5em;
+
+    @media screen and (max-width: theme('screens.laptop')) {
+      font-size: 1.4em;
+    }
+  }
+
+  h3 {
+    font-size: 1.35em;
+
+    @media screen and (max-width: theme('screens.laptop')) {
+      font-size: 1.3em;
+    }
+  }
+
+  h4 {
+    font-size: 1.2em;
+
+    @media screen and (max-width: theme('screens.laptop')) {
+      font-size: 1.15em;
+    }
+  }
+
+  hr {
+    margin: $spacing-unit 0;
+  }
+
+  /**
+ * Links
+ */
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  /*
+ * Blockquotes
+ */
+
+  blockquote {
+    border-left-width: 4px;
+    border-left-style: solid;
+    padding-left: $spacing-unit;
+    font-size: smaller;
+    letter-spacing: -1px;
+    font-style: italic;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /*
+ * Code formatting
+ */
+
+  pre,
+  code {
+    font-size: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+  }
+
+  code {
+    padding: 1px 5px;
+  }
+
+  pre {
+    padding: 8px 12px;
+    overflow-x: auto;
+
+    > code {
+      border: 0;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  /*
+ * Icons
+ */
+
+  svg {
+    display: inline; // for ie and others
+    display: initial;
+  }
+
+  .relative-fallback {
+    position: relative;
+  }
+}
