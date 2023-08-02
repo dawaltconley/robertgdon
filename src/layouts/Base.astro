@@ -2,11 +2,11 @@
 import '../styles/global.scss'
 
 export interface Props {
-  title: string;
-  description?: string;
-  ogImage?: string;
-  class?: string;
-  itemtype?: string;
+  title: string
+  description?: string
+  ogImage?: string
+  class?: string
+  itemtype?: string
 }
 
 const {
@@ -15,7 +15,7 @@ const {
   class: className,
   ogImage = '/og-default.png',
   itemtype,
-} = Astro.props;
+} = Astro.props
 ---
 
 <!DOCTYPE html>
@@ -42,8 +42,14 @@ const {
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="theme-color" content="#f2f2f2" />
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,400i,700,700i|Oswald" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway:200,400,400i,700,700i|Oswald"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="canonical" href={Astro.url} />
 
     {
@@ -75,7 +81,14 @@ const {
     background-color: #f6f6f6;
   }
   code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
   }
 </style>
