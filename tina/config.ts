@@ -94,6 +94,7 @@ export default defineConfig({
             type: 'image',
             label: 'Image',
             name: 'image',
+            required: true,
           },
           {
             type: 'boolean',
