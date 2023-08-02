@@ -27,6 +27,9 @@ module.exports = {
       },
       colors: {
         brand: 'firebrick', // #981212
+        neutral: {
+          900: '#151515',
+        },
       },
       inset: {
         'almost-full': 'calc(100% - 1px)',
