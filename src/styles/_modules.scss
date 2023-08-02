@@ -1,0 +1,68 @@
+$text-shadow: 2px 1px 6px rgba(black, 0.6);
+$full-shadow: 0 0 0.24em black;
+$perspective: 2000px;
+
+@layer utilities {
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .no-backface {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .full-shadow {
+    text-shadow: $full-shadow;
+  }
+
+  .radial-shadow {
+    $density: 0.3;
+    $reach: 0%;
+    $overflow: 50%;
+
+    position: relative;
+    overflow: visible;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -$overflow;
+      left: -$overflow;
+      right: -$overflow;
+      bottom: -$overflow;
+      background: -webkit-radial-gradient(
+        ellipse closest-side,
+        rgba(black, $density) $reach,
+        transparent
+      );
+      background: radial-gradient(
+        ellipse closest-side,
+        rgba(black, $density) $reach,
+        transparent
+      );
+      z-index: 0;
+    }
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .contains-3d {
+    -webkit-perspective: $perspective;
+    perspective: $perspective;
+
+    &-deep * {
+      @extend .contains-3d;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+  }
+}

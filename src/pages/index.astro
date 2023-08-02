@@ -1,31 +1,52 @@
 ---
-import Layout from '../layouts/Base.astro';
-import  { TinaMarkdown }  from 'tinacms/dist/rich-text'
+import Layout from '../layouts/Base.astro'
+import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 import { client } from '@tina/__generated__/client'
 const { data } = await client.queries.site({ relativePath: 'site.yml' })
 const { title, description, bio } = data.site
 ---
 
-<Layout title={title ?? 'Robert Don'} description={description ?? undefined}>
-  <div class="contains-3d">
-    <div id="splash" class="dark splash-container splash-img" data-force-fullscreen>
-
-      <div class="flex-col flex-align-center full-height page-wrapper padding-m">
-
-        <a href="/" class="subtle-icon margin-auto text-center full-shadow radial-shadow no-select">
-          <h1 class="title margin-0 border-thick-b">{title}</h1>
-          <p class="subtitle caps">{description}</p>
+<Layout
+  title={title ?? 'Robert Don'}
+  description={description ?? undefined}
+  class="font-sans"
+>
+  <div class="contains-3d bg-neutral-100">
+    <div
+      id="splash"
+      class="text-white bg-neutral-900 splash-container splash-img"
+      data-force-fullscreen
+    >
+      <div class="container flex flex-col items-center h-full mx-auto p-md">
+        <a
+          href="/"
+          class="m-auto text-center full-shadow radial-shadow no-select"
+        >
+          <h1 class="title m-0 border-b-2 border-white">
+            {title}
+          </h1>
+          <p class="subtitle font-caps uppercase">{description}</p>
         </a>
 
-        <a href="#projects" class="fa fa-chevron-down subtle-icon scroll-arrow no-select" data-smooth-scroll data-hide-on-scroll data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Clicked on scroll arrow"></a>
-
+        <a
+          href="#projects"
+          class="fa fa-chevron-down scroll-arrow no-select"
+          data-smooth-scroll
+          data-hide-on-scroll
+          data-analytics-category="Navigation"
+          data-analytics-action="click"
+          data-analytics-label="Clicked on scroll arrow"></a>
       </div>
-
     </div>
 
-    <div id="project-view" class="overflow-h t-project-view hw-accel no-backface" data-project-view>
-      {/*
+    <div
+      id="project-view"
+      class="text-neutral-800 overflow-hidden t-project-view transform-gpu no-backface"
+      data-project-view
+    >
+      {
+        /*
       Projects data / text
 
       {% assign project_count = 1 %}
@@ -39,16 +60,20 @@ const { title, description, bio } = data.site
       {% endif %}
       {% endfor %}
       {% endfor %}
-      */}
-
+      */
+      }
     </div>
 
-    <div id="projects" class="page-wrapper padding-m-h padding-l-v">
+    <div id="projects" class="container mx-auto py-lg text-neutral-800">
+      <h2
+        class="font-caps text-[2em] text-neutral-800 uppercase pb-xs border-b border-neutral-800"
+      >
+        Projects
+      </h2>
 
-      <h2 class="caps padding-xs-b border-basic-b">Projects</h2>
-
-      <div class="margin-l-b font-0 contains-3d-deep">
-        {/*
+      <div class="mb-lg contains-3d-deep">
+        {
+          /*
         Project buttons
 
         {% for project_title_1 in site.data.projects %}
@@ -60,7 +85,7 @@ const { title, description, bio } = data.site
         {% if jekyll.environment == 'production' or jekyll.environment == 'gulp' %}
         {% capture image %}{% include file-suffix.liquid file_name=image suffix='-thumb' %}{% endcapture %}
         {% endif %}
-        <a href="#{{ project.slug }}" class="subtle-icon inline-col-1 hover t-button-flip" data-project-button data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Opened {{ project_title_2 }} project">
+        <a href="#{{ project.slug }}" class="inline-col-1 hover t-button-flip" data-project-button data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Opened {{ project_title_2 }} project">
           <div class="square" data-project-button-content>
             <div class="overflow-h no-backface">
               <img class="full-size object-fit-cover hover-blur overflow-h" src="{{ image }}" alt="{{ project.title }}">
@@ -70,7 +95,7 @@ const { title, description, bio } = data.site
                 {{ project.title | markdownify }}
               </span>
             </div>
-            <div class="dark flex-col padding-xs text-center flip-x no-backface hover-lighten t-default">
+            <div class="text-white bg-neutral-900 flex-col padding-xs text-center flip-x no-backface hover-lighten t-default">
               <span class="margin-auto no-backface">
                 Close
               </span>
@@ -80,37 +105,172 @@ const { title, description, bio } = data.site
         {% endif %}
         {% endfor %}
         {% endfor %}
-        */}
+        */
+        }
       </div>
 
-      <div class="bio flex-row">
-        <div class="text-wrapper margin-m-b">
-          <h2 class="caps padding-xs-b border-basic-b">About Me</h2>
+      <div class="bio flex flex-row">
+        <div class="max-w-prose mb-md">
+          <h2
+            class="font-caps text-[2em] uppercase pb-xs border-b border-b-neutral-800"
+          >
+            About Me
+          </h2>
 
           <TinaMarkdown content={bio} />
         </div>
 
-        <div class="headshot-container margin-m-l expand-children">
-          <img class="object-fit-rob" src="/media/headshot.jpg" alt="headshot photo">
+        <div class="headshot-container relative ml-md">
+          <img
+            class="absolute inset-0 w-full h-full object-fit-rob"
+            src="/media/headshot.jpg"
+            alt="headshot photo"
+          />
         </div>
       </div>
-
     </div>
 
-    <div id="cta" class="dark cta-img">
+    <div id="cta" class="text-white bg-neutral-900 cta-img">
+      <div
+        class="min-h-[50vh] flex flex-col justify-center items-center container mx-auto px-md py-lg text-center"
+      >
+        <h2 class="font-caps text-[2em] uppercase mb-md">Have a project?</h2>
 
-      <div class="half-screen-height-min flex-col flex-center page-wrapper padding-m-h padding-l-v text-center">
+        <i class="fa fa-chevron-down text-[1.5em] mb-md no-select"></i>
 
-        <h2 class="caps margin-m-b">Have a project?</h2>
-
-        <i class="fa fa-chevron-down font-size-large margin-m-b no-select"></i>
-
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScE325v5jJaix12pW8lGQldHVvDxkpp4urSVSKHqlFuU-hPLg/viewform" class="button caps t-default hover hover-scale" target="_blank" data-analytics-category="Contact Link" data-analytics-action="click" data-analytics-label="Opened up contact form">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScE325v5jJaix12pW8lGQldHVvDxkpp4urSVSKHqlFuU-hPLg/viewform"
+          class="button font-caps text-[2em] uppercase duration-300 hover:scale-105"
+          target="_blank"
+          data-analytics-category="Contact Link"
+          data-analytics-action="click"
+          data-analytics-label="Opened up contact form"
+        >
           Get in touch
         </a>
-
       </div>
-
     </div>
   </div>
 </Layout>
+
+<style lang="scss">
+  @use 'sass:color';
+  @use '@dawaltconley/responsive-images';
+
+  .container {
+    min-width: 50%;
+  }
+
+  .splash-container {
+    height: 80vh;
+    min-height: 300px;
+  }
+
+  %bg-image {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .splash-img {
+    @extend %bg-image;
+
+    @include responsive-images.bg(
+      $src: './public/media/backgrounds/mixing-board-angled.jpg',
+      $prepend-backgrounds: linear-gradient(rgba(black, 0.4), rgba(black, 0.4))
+    );
+  }
+
+  .cta-img {
+    @extend %bg-image;
+    background-position: bottom;
+
+    @include responsive-images.bg(
+      $src: './public/media/backgrounds/mixing-board-straight.jpg',
+      $prepend-backgrounds: linear-gradient(rgba(black, 0.7), rgba(black, 0.5))
+    );
+  }
+
+  .title {
+    @apply font-sans;
+    font-weight: 200;
+    letter-spacing: 2px;
+    font-size: 88px;
+  }
+
+  .subtitle {
+    font-size: 42px;
+    font-weight: 400;
+  }
+
+  .scroll-arrow {
+    font-size: 36px;
+    padding: 4px;
+  }
+
+  $trans-project: 1s;
+
+  .t-project-view {
+    transition: $trans-project ease-out;
+  }
+
+  .headshot-container {
+    flex: 1 0.4 70%;
+  }
+
+  @media screen and (max-width: theme('screens.laptop')) {
+    .bio {
+      display: block;
+    }
+
+    .headshot-container {
+      margin-left: 0;
+
+      & > img {
+        position: static;
+      }
+    }
+  }
+
+  .object-fit-rob {
+    $pos: 70% 0%;
+    object-fit: cover;
+    object-position: $pos;
+    font-family: 'object-fit: cover; object-position: #{$pos};';
+  }
+
+  $brand-color: theme('colors.brand');
+
+  .button {
+    display: inline-block;
+    padding: 0.8rem 1rem 1rem;
+    line-height: 1;
+    -webkit-clip-path: polygon(
+      5% 0,
+      95% 0,
+      100% 25%,
+      100% 75%,
+      95% 100%,
+      5% 100%,
+      0 75%,
+      0 25%
+    );
+    clip-path: polygon(
+      5% 0,
+      95% 0,
+      100% 25%,
+      100% 75%,
+      95% 100%,
+      5% 100%,
+      0 75%,
+      0 25%
+    );
+    background-color: $brand-color;
+    &:visited {
+      background-color: color.adjust($brand-color, $lightness: 10%);
+    }
+    &:hover {
+      background-color: color.adjust($brand-color, $lightness: 15%);
+    }
+  }
+</style>

@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     container: {
       padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
+        DEFAULT: '15px', // 1rem
+        mobile: '30px', // 2rem
       },
     },
     screens: {

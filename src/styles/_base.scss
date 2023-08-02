@@ -100,7 +100,7 @@ $header-font-weight: 600;
   h4,
   h5,
   h6 {
-    font-weight: $header-font-weight;
+    // font-weight: $header-font-weight;
     line-height: 1;
     text-decoration: none;
   }
@@ -137,13 +137,13 @@ $header-font-weight: 600;
  * Links
  */
 
-  a {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+  // a {
+  //   text-decoration: none;
+  //
+  //   &:hover {
+  //     text-decoration: underline;
+  //   }
+  // }
 
   /*
  * Blockquotes
