@@ -108,6 +108,100 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: 'site',
+        label: 'Global',
+        path: 'content/data',
+        match: {
+          include: 'site',
+        },
+        format: 'yml',
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+        },
+        fields: [
+          {
+            type: 'string',
+            label: 'Site Title',
+            name: 'title',
+          },
+          {
+            type: 'string',
+            label: 'Site Description',
+            name: 'description',
+          },
+          {
+            type: 'object',
+            label: 'Contact Info',
+            name: 'contact',
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: item.icon,
+              }),
+            },
+            fields: [
+              {
+                type: 'string',
+                label: 'Icon',
+                name: 'icon',
+                required: true,
+                options: [
+                  {
+                    label: 'Email',
+                    value: 'email',
+                  },
+                  {
+                    label: 'Phone',
+                    value: 'phone',
+                  },
+                  {
+                    label: 'LinkedIn',
+                    value: 'linkedin',
+                  },
+                  {
+                    label: 'Facebook',
+                    value: 'facebook',
+                  },
+                  {
+                    label: 'Instagram',
+                    value: 'instagram',
+                  },
+                  {
+                    label: 'Twitter',
+                    value: 'twitter',
+                  },
+                  {
+                    label: 'Google Plus',
+                    value: 'google-plus',
+                  },
+                  {
+                    label: 'Youtube',
+                    value: 'youtube',
+                  },
+                  {
+                    label: 'Vimeo',
+                    value: 'vimeo',
+                  },
+                  {
+                    label: 'Bandcamp',
+                    value: 'bandcamp',
+                  },
+                ],
+              },
+              {
+                type: 'string',
+                label: 'Link',
+                name: 'link',
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 })
