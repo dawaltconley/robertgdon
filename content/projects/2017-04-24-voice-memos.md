@@ -5,6 +5,6 @@ title: Voice Memos
 link: 'https://allcapsladd.bandcamp.com/track/good-thinking'
 tralbum_id: '4041833123'
 media: bandcamp
-image: voicememos.jpg
+image: /media/project-images/voicememos.jpg
 ---
 Engineer, mixer, and mastering engineer for debut full length release by rock quartet all-caps LADD.

@@ -16,7 +16,7 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: '',
+      mediaRoot: 'media',
       publicFolder: 'public',
     },
   },
@@ -92,6 +92,11 @@ export default defineConfig({
               description:
                 'Bandcamp only. A number associated with the linked track or album.',
             },
+          },
+          {
+            type: 'image',
+            label: 'Image',
+            name: 'image',
           },
           {
             type: 'boolean',

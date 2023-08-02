@@ -4,6 +4,6 @@ media: vimeo
 published: true
 title: Coppertone Pool
 link: 'https://vimeo.com/214580255'
-image: CoppertonePool.jpg
+image: /media/project-images/CoppertonePool.jpg
 ---
 An original music composition I submitted for a Coppertone sunscreen ad campaign.
