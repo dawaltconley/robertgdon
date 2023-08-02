@@ -1,0 +1,68 @@
+---
+// @ts-expect-error
+import MediaIcons from '@dawaltconley/media-icons'
+import '@dawaltconley/media-icons/_index.scss'
+import { client } from '@tina/__generated__/client'
+
+const { data } = await client.queries.site({ relativePath: 'site.yml' })
+const { contact } = data.site
+
+const icons = new MediaIcons()
+const mediaIcons =
+  contact &&
+  icons
+    .makeIcons(
+      {},
+      contact.map((i) => ({ ...i, type: i?.icon })),
+    )
+    .replace(/(?<=class=".*)\bfas\b/g, 'fa') // stupid hack to make this work with FA4
+---
+
+<div
+  id="footer"
+  class="footer bg-neutral-900 text-white border-t border-neutral-800"
+>
+  <div class="container mx-auto p-md text-center">
+    <div class="mb-sm media-icon-basic media-icon-list duration-300">
+      <Fragment set:html={mediaIcons} />
+    </div>
+
+    <div class="text-sm leading-normal table mx-auto">
+      <div class="table-cell px-xs border-r border-neutral-100">
+        Copyright &copy; 2017 Robert Don
+      </div>
+      <div class="table-cell px-xs">
+        Site design by <a
+          href="https://github.com/dawaltconley"
+          class="hover:underline"
+          target="_blank"
+          data-analytics-category="Contact Link"
+          data-analytics-action="click"
+          data-analytics-label="Followed link to Dylan's Github (good job!)"
+        >
+          <i class="fa fa-github fa-fw fa-lg">&nbsp;</i>Dylan Awalt-Conley
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .footer {
+    @media screen and (max-width: theme('screens.laptop')) {
+      .table {
+        display: block;
+      }
+
+      .table-cell {
+        display: block;
+        padding: 0;
+        border: 0;
+      }
+    }
+
+    @media screen and (max-width: theme('screens.mobile')) {
+      font-size: 1.2em;
+    }
+  }
+</style>
