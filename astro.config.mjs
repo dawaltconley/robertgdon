@@ -16,5 +16,7 @@ const tina = () => ({
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://robertgdon.com',
+  output: 'static',
   integrations: [react(), tina()]
 });
