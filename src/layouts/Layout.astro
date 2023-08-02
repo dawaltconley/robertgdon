@@ -1,7 +1,19 @@
 ---
-import { client } from '@tina/__generated__/client'
-const { data } = await client.queries.site({ relativePath: 'site.yml' })
-const { title, description } = data.site
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  class?: string;
+  itemtype?: string;
+}
+
+const {
+  title,
+  description,
+  class: className,
+  ogImage = '/og-default.png',
+  itemtype,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,6 +26,13 @@ const { title, description } = data.site
     <title>{title}</title>
     <meta name="description" content={description} />
 
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -21,7 +40,7 @@ const { title, description } = data.site
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="theme-color" content="#f2f2f2" />
   </head>
-  <body>
+  <body class={className} itemscope itemtype={itemtype}>
     <slot />
   </body>
 </html>
