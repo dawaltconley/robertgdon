@@ -1,81 +1,116 @@
 ---
 import Layout from '../layouts/Base.astro';
-import Card from '../components/Card.astro';
+import  { TinaMarkdown }  from 'tinacms/dist/rich-text'
+
+import { client } from '@tina/__generated__/client'
+const { data } = await client.queries.site({ relativePath: 'site.yml' })
+const { title, description, bio } = data.site
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
-</Layout>
+<Layout title={title ?? 'Robert Don'} description={description ?? undefined}>
+  <div class="contains-3d">
+    <div id="splash" class="dark splash-container splash-img" data-force-fullscreen>
 
-<style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
-</style>
+      <div class="flex-col flex-align-center full-height page-wrapper padding-m">
+
+        <a href="/" class="subtle-icon margin-auto text-center full-shadow radial-shadow no-select">
+          <h1 class="title margin-0 border-thick-b">{title}</h1>
+          <p class="subtitle caps">{description}</p>
+        </a>
+
+        <a href="#projects" class="fa fa-chevron-down subtle-icon scroll-arrow no-select" data-smooth-scroll data-hide-on-scroll data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Clicked on scroll arrow"></a>
+
+      </div>
+
+    </div>
+
+    <div id="project-view" class="overflow-h t-project-view hw-accel no-backface" data-project-view>
+      {/*
+      Projects data / text
+
+      {% assign project_count = 1 %}
+      {% for project_title_1 in site.data.projects %}
+      {% assign project_title_1 = project_title_1 | replace: '&nbsp;', ' ' %}
+      {% for project in site.projects %}
+      {% assign project_title_2 = project.title | replace: '&nbsp;', ' ' %}
+      {% if project_title_1 == project_title_2 %}
+      {% include project.html project=project index=project_count %}
+      {% assign project_count = project_count | plus: 1 %}
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+      */}
+
+    </div>
+
+    <div id="projects" class="page-wrapper padding-m-h padding-l-v">
+
+      <h2 class="caps padding-xs-b border-basic-b">Projects</h2>
+
+      <div class="margin-l-b font-0 contains-3d-deep">
+        {/*
+        Project buttons
+
+        {% for project_title_1 in site.data.projects %}
+        {% assign project_title_1 = project_title_1 | replace: '&nbsp;', ' ' %}
+        {% for project in site.projects %}
+        {% assign project_title_2 = project.title | replace: '&nbsp;', ' ' %}
+        {% if project_title_1 == project_title_2 %}
+        {% capture image %}{{ site.baseurl }}/{{ site.prose.media }}/{{ project.image }}{% endcapture %}
+        {% if jekyll.environment == 'production' or jekyll.environment == 'gulp' %}
+        {% capture image %}{% include file-suffix.liquid file_name=image suffix='-thumb' %}{% endcapture %}
+        {% endif %}
+        <a href="#{{ project.slug }}" class="subtle-icon inline-col-1 hover t-button-flip" data-project-button data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Opened {{ project_title_2 }} project">
+          <div class="square" data-project-button-content>
+            <div class="overflow-h no-backface">
+              <img class="full-size object-fit-cover hover-blur overflow-h" src="{{ image }}" alt="{{ project.title }}">
+            </div>
+            <div class="overlay flex-col padding-xs text-center hover-fade-in no-backface">
+              <span class="margin-auto">
+                {{ project.title | markdownify }}
+              </span>
+            </div>
+            <div class="dark flex-col padding-xs text-center flip-x no-backface hover-lighten t-default">
+              <span class="margin-auto no-backface">
+                Close
+              </span>
+            </div>
+          </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        */}
+      </div>
+
+      <div class="bio flex-row">
+        <div class="text-wrapper margin-m-b">
+          <h2 class="caps padding-xs-b border-basic-b">About Me</h2>
+
+          <TinaMarkdown content={bio} />
+        </div>
+
+        <div class="headshot-container margin-m-l expand-children">
+          <img class="object-fit-rob" src="/media/headshot.jpg" alt="headshot photo">
+        </div>
+      </div>
+
+    </div>
+
+    <div id="cta" class="dark cta-img">
+
+      <div class="half-screen-height-min flex-col flex-center page-wrapper padding-m-h padding-l-v text-center">
+
+        <h2 class="caps margin-m-b">Have a project?</h2>
+
+        <i class="fa fa-chevron-down font-size-large margin-m-b no-select"></i>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScE325v5jJaix12pW8lGQldHVvDxkpp4urSVSKHqlFuU-hPLg/viewform" class="button caps t-default hover hover-scale" target="_blank" data-analytics-category="Contact Link" data-analytics-action="click" data-analytics-label="Opened up contact form">
+          Get in touch
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</Layout>
