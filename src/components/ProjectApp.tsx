@@ -34,16 +34,10 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
       <div
         ref={view}
         id="project-view"
-        className="t-project-view no-backface transform-gpu overflow-hidden"
+        className="no-backface transform-gpu overflow-hidden duration-1000 ease-out"
         data-project-view
       >
-        <div
-          id="project-view"
-          className="t-project-view no-backface transform-gpu overflow-hidden"
-          data-project-view
-        >
-          {current && <ProjectView key={current.slug} project={current} />}
-        </div>
+        {current && <ProjectView key={current.slug} project={current} />}
       </div>
 
       <div id="projects" className="container mx-auto my-lg">
