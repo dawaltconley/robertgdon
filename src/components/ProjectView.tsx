@@ -1,6 +1,7 @@
 import type { Project } from './ProjectApp'
 import ProjectEmbed from './ProjectEmbed'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
+import classNames from 'classnames'
 
 interface ProjectViewProps {
   project: Project
@@ -18,9 +19,12 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
   return (
     <div
       id={project.slug}
-      className={`relative w-full duration-1000 overflow-hidden no-backface {{ bg_img }} ${
-        noJs ? 'hidden target:block' : ''
-      }`}
+      className={classNames(
+        'relative w-full duration-1000 overflow-hidden no-backface {{ bg_img }}',
+        {
+          'hidden target:block': noJs,
+        },
+      )}
       data-project
       data-index="{{ include.index }}"
     >
@@ -33,9 +37,9 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
       ></canvas>
 
       <div
-        className={`container z-20 mx-auto px-md py-lg ${
-          hasColumns ? 'grid-cols-2 laptop:grid' : ''
-        }`}
+        className={classNames('container z-20 mx-auto px-md py-lg', {
+          'grid-cols-2 laptop:grid': hasColumns,
+        })}
         data-project-content
       >
         {project.type === 'page' ? (
