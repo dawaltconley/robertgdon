@@ -14,39 +14,6 @@ const ProjectView = ({ project }: ProjectViewProps) => {
       className="t-project-view no-backface transform-gpu overflow-hidden"
       data-project-view
     >
-      {/*
-      Projects data / text
-
-      {% assign project_count = 1 %}
-      {% for project_title_1 in site.data.projects %}
-      {% assign project_title_1 = project_title_1 | replace: '&nbsp;', ' ' %}
-      {% for project in site.projects %}
-      {% assign project_title_2 = project.title | replace: '&nbsp;', ' ' %}
-      {% if project_title_1 == project_title_2 %}
-      {% include project.html project=project index=project_count %}
-      {% assign project_count = project_count | plus: 1 %}
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-      */}
-      {/*
-      {% assign title = include.project.title %}
-      {% assign link = include.project.link %}
-      {% assign type = include.project.media %}
-      {% assign columns = true %}
-      {% if type == 'youtube' or type == 'vimeo' %}
-      {% assign columns = false %}
-      {% endif %}
-      {% assign description = include.project.content %}
-      {% capture image_thumb %}{{ site.baseurl }}/{{ site.prose.media }}/{{ include.project.image }}{% endcapture %}
-      {% assign image_display = image_thumb %}
-      {% if jekyll.environment == 'production' or jekyll.environment == 'gulp' %}
-      {% capture image_thumb %}{% include file-suffix.liquid file_name=image_thumb suffix='-thumb' %}{% endcapture %}
-      {% capture image_display %}{% include file-suffix.liquid file_name=image_display suffix='-display' %}{% endcapture %}
-      {% endif %}
-      {% assign bg_img = include.project.slug | append: '-img' %}
-      */}
-
       <div
         id={project.slug}
         className="relative w-full hidden target:block duration-1000 overflow-hidden no-backface {{ bg_img }}"
