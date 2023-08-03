@@ -14,6 +14,7 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
   const canvas = useRef<HTMLCanvasElement>(null)
   const body = useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
+  const image = useRef<HTMLImageElement>(new Image())
 
   const hasColumns = project.type !== 'youtube' && project.type !== 'vimeo'
   const analytics = {
@@ -23,12 +24,12 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
   }
 
   useEffect(() => {
-    const image = new Image()
-    image.addEventListener('load', () => {
+    const img = image.current
+    img.addEventListener('load', () => {
       if (!canvas.current || !body.current || !content.current) return
-      drawToCanvas(canvas.current, body.current, content.current, image)
+      drawToCanvas(canvas.current, body.current, content.current, image.current)
     })
-    image.src = project.image
+    img.src = project.image
   }, [])
 
   return (
