@@ -1,6 +1,6 @@
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export interface Project {
   slug: string
@@ -18,16 +18,21 @@ interface ProjectAppProps {
 }
 
 const ProjectApp = ({ projects }: ProjectAppProps) => {
+  const view = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState<Project>()
 
   const handlePickProject = (slug: string): void => {
     const selected = projects.find((p) => p.slug === slug)
     setCurrent(selected)
+    if (!view.current) return
+    const { top } = view.current.getBoundingClientRect()
+    window.scrollTo(0, top + window.scrollY)
   }
 
   return (
     <>
       <div
+        ref={view}
         id="project-view"
         className="t-project-view no-backface transform-gpu overflow-hidden"
         data-project-view
