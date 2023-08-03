@@ -4,7 +4,7 @@ interface ProjectButtonProps {
   slug: string
   title: string
   image: string
-  handleClick: (slug: string) => void
+  handleClick: (slug: string | null) => void
   isActive?: boolean
 }
 
@@ -23,7 +23,7 @@ const ProjectButton = ({
       })}
       onClick={(e) => {
         e.preventDefault()
-        handleClick(slug)
+        handleClick(isActive ? null : slug)
       }}
       data-project-button
       data-analytics-category="Navigation"

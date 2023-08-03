@@ -21,7 +21,7 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState<Project>()
 
-  const handlePickProject = (slug: string): void => {
+  const handlePickProject = (slug: string | null): void => {
     const selected = projects.find((p) => p.slug === slug)
     setCurrent(selected)
     if (!view.current) return
