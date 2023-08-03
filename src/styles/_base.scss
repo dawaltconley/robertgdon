@@ -1,8 +1,6 @@
 $spacing-unit: 30px;
 $header-font-weight: 600;
 
-@debug theme('screens.mobile');
-
 @layer base {
   body {
     font-family: Raleway, HelveticaNeue, sans-serif;
