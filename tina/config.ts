@@ -35,6 +35,7 @@ export default defineConfig({
             type: 'datetime',
             label: 'Date',
             name: 'date',
+            required: true,
           },
           {
             type: 'string',
@@ -103,9 +104,10 @@ export default defineConfig({
           },
           {
             type: 'rich-text',
-            label: 'Body',
-            name: 'body',
+            label: 'Description',
+            name: 'description',
             isBody: true,
+            required: true,
           },
         ],
       },
