@@ -19,7 +19,7 @@ const ProjectGrid = ({ projects }: ProjectGridProps) => {
   return (
     <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
       {projects.map((p) => (
-        <ProjectButton {...p} />
+        <ProjectButton key={p.slug} {...p} />
       ))}
     </div>
   )
