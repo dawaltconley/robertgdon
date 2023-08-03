@@ -9,7 +9,7 @@ interface ProjectViewProps {
 }
 
 const ProjectView = ({ project, noJs }: ProjectViewProps) => {
-  const hasColumns = project.type === 'youtube' || project.type === 'vimeo'
+  const hasColumns = project.type !== 'youtube' && project.type !== 'vimeo'
   const analytics = {
     'data-analytics-category': 'Audio',
     'data-analytics-action': 'click',
@@ -38,7 +38,7 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
 
       <div
         className={classNames('container z-20 mx-auto px-md py-lg', {
-          'grid-cols-2 laptop:grid': hasColumns,
+          'grid-cols-2 gap-md laptop:grid': hasColumns,
         })}
         data-project-content
       >
