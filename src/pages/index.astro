@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Base.astro'
 import Footer from '../components/Footer.astro'
-import ProjectButton from '../components/ProjectButton'
+import ProjectGrid from '../components/ProjectGrid'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 import { client } from '@tina/__generated__/client'
@@ -21,7 +21,7 @@ const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
   description={description ?? undefined}
   class="font-sans"
 >
-  <div class="contains-3d bg-neutral-100">
+  <div class="contains-3d bg-neutral-100 text-neutral-800">
     <div
       id="splash"
       class="text-white bg-neutral-900 splash-container splash-img"
@@ -51,7 +51,7 @@ const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
 
     <div
       id="project-view"
-      class="text-neutral-800 overflow-hidden t-project-view transform-gpu no-backface"
+      class="overflow-hidden t-project-view transform-gpu no-backface"
       data-project-view
     >
       {
@@ -73,53 +73,17 @@ const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
       }
     </div>
 
-    <div id="projects" class="container mx-auto py-lg text-neutral-800">
+    <div id="projects" class="container mx-auto my-lg">
       <h2
-        class="font-caps text-[2em] text-neutral-800 uppercase pb-xs border-b border-neutral-800"
+        class="font-caps text-[2em] uppercase pb-xs border-b border-neutral-800"
       >
         Projects
       </h2>
 
-      <div class="mb-lg contains-3d-deep grid grid-cols-3 gap-xs">
-        {
-          projects && projects.map((p) => <ProjectButton {...p} />)
+      {projects && <ProjectGrid projects={projects} />}
+    </div>
 
-          /*
-        Project buttons
-
-        {% for project_title_1 in site.data.projects %}
-        {% assign project_title_1 = project_title_1 | replace: '&nbsp;', ' ' %}
-        {% for project in site.projects %}
-        {% assign project_title_2 = project.title | replace: '&nbsp;', ' ' %}
-        {% if project_title_1 == project_title_2 %}
-        {% capture image %}{{ site.baseurl }}/{{ site.prose.media }}/{{ project.image }}{% endcapture %}
-        {% if jekyll.environment == 'production' or jekyll.environment == 'gulp' %}
-        {% capture image %}{% include file-suffix.liquid file_name=image suffix='-thumb' %}{% endcapture %}
-        {% endif %}
-        <a href="#{{ project.slug }}" class="inline-col-1 hover t-button-flip" data-project-button data-analytics-category="Navigation" data-analytics-action="click" data-analytics-label="Opened {{ project_title_2 }} project">
-          <div class="square" data-project-button-content>
-            <div class="overflow-h no-backface">
-              <img class="full-size object-fit-cover hover-blur overflow-h" src="{{ image }}" alt="{{ project.title }}">
-            </div>
-            <div class="overlay flex-col padding-xs text-center hover-fade-in no-backface">
-              <span class="margin-auto">
-                {{ project.title | markdownify }}
-              </span>
-            </div>
-            <div class="text-white bg-neutral-900 flex-col padding-xs text-center flip-x no-backface hover-lighten t-default">
-              <span class="margin-auto no-backface">
-                Close
-              </span>
-            </div>
-          </div>
-        </a>
-        {% endif %}
-        {% endfor %}
-        {% endfor %}
-        */
-        }
-      </div>
-
+    <div id="bio" class="container mx-auto my-lg">
       <div class="bio flex flex-row">
         <div class="max-w-prose mb-md">
           <h2
