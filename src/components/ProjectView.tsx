@@ -1,7 +1,9 @@
 import type { Project } from './ProjectApp'
 import ProjectEmbed from './ProjectEmbed'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
+import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
+import { useEffect, useRef } from 'react'
 
 interface ProjectViewProps {
   project: Project
@@ -9,6 +11,10 @@ interface ProjectViewProps {
 }
 
 const ProjectView = ({ project, noJs }: ProjectViewProps) => {
+  const canvas = useRef<HTMLCanvasElement>(null)
+  const body = useRef<HTMLDivElement>(null)
+  const content = useRef<HTMLDivElement>(null)
+
   const hasColumns = project.type !== 'youtube' && project.type !== 'vimeo'
   const analytics = {
     'data-analytics-category': 'Audio',
@@ -16,8 +22,18 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
     'data-analytics-label': `Listened to ${project.title}`,
   }
 
+  useEffect(() => {
+    const image = new Image()
+    image.addEventListener('load', () => {
+      if (!canvas.current || !body.current || !content.current) return
+      drawToCanvas(canvas.current, body.current, content.current, image)
+    })
+    image.src = project.image
+  }, [])
+
   return (
     <div
+      ref={body}
       id={project.slug}
       className={classNames(
         'relative w-full duration-1000 overflow-hidden no-backface {{ bg_img }}',
@@ -29,18 +45,19 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
       data-index="{{ include.index }}"
     >
       <canvas
+        ref={canvas}
         width="400"
         height="300"
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 h-full w-full"
         data-project-background
         data-image="{{ image_thumb }}"
       ></canvas>
 
       <div
-        className={classNames('container z-20 mx-auto px-md py-lg', {
+        ref={content}
+        className={classNames('container relative z-20 mx-auto px-md py-lg', {
           'grid-cols-2 gap-md laptop:grid': hasColumns,
         })}
-        data-project-content
       >
         {project.type === 'page' ? (
           <a
