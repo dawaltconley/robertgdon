@@ -1,6 +1,6 @@
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
-import { useState, useRef } from 'react'
+import { useState, useRef, memo } from 'react'
 
 export interface Project {
   slug: string
@@ -38,6 +38,9 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
         data-project-view
       >
         {current && <ProjectView key={current.slug} project={current} />}
+        <noscript>
+          <NoScriptFallback projects={projects} />
+        </noscript>
       </div>
 
       <div id="projects" className="container mx-auto my-lg">
@@ -59,5 +62,16 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
     </>
   )
 }
+
+const NoScriptFallback = memo(({ projects }: { projects: Project[] }) => {
+  console.log('render noscript')
+  return (
+    <>
+      {projects.map((p) => (
+        <ProjectView key={p.slug} project={p} noJs />
+      ))}
+    </>
+  )
+})
 
 export default ProjectApp
