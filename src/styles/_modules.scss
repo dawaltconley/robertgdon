@@ -12,6 +12,11 @@ $perspective: 2000px;
     user-select: none;
   }
 
+  .flip-x {
+    -webkit-transform: rotate3d(1, 0, 0, 180deg);
+    transform: rotate3d(1, 0, 0, 180deg);
+  }
+
   .no-backface {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
