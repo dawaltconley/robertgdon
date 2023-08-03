@@ -1,9 +1,8 @@
 ---
-import type { Project } from '../components/ProjectGrid'
+import type { Project } from '../components/ProjectApp'
 import Layout from '../layouts/Base.astro'
+import ProjectApp from '../components/ProjectApp'
 import Footer from '../components/Footer.astro'
-import ProjectView from '../components/ProjectView'
-import ProjectGrid from '../components/ProjectGrid'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 import pick from 'lodash/pick'
@@ -75,40 +74,7 @@ const projects = projectsResponse.data.projectConnection.edges
       </div>
     </div>
 
-    <div
-      id="project-view"
-      class="overflow-hidden t-project-view transform-gpu no-backface"
-      data-project-view
-    >
-      {projects && projects.map((p) => <ProjectView project={p} />)}
-      {
-        /*
-      Projects data / text
-
-      {% assign project_count = 1 %}
-      {% for project_title_1 in site.data.projects %}
-      {% assign project_title_1 = project_title_1 | replace: '&nbsp;', ' ' %}
-      {% for project in site.projects %}
-      {% assign project_title_2 = project.title | replace: '&nbsp;', ' ' %}
-      {% if project_title_1 == project_title_2 %}
-      {% include project.html project=project index=project_count %}
-      {% assign project_count = project_count | plus: 1 %}
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-      */
-      }
-    </div>
-
-    <div id="projects" class="container mx-auto my-lg">
-      <h2
-        class="font-caps text-[2em] uppercase pb-xs border-b border-neutral-800"
-      >
-        Projects
-      </h2>
-
-      {projects && <ProjectGrid projects={projects} />}
-    </div>
+    {projects && <ProjectApp client:load projects={projects} />}
 
     <div id="bio" class="container mx-auto my-lg">
       <div class="bio flex flex-row">

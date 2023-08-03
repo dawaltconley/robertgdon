@@ -2,13 +2,23 @@ interface ProjectButtonProps {
   slug: string
   title: string
   image: string
+  handleClick: (slug: string) => void
 }
 
-const ProjectButton = ({ slug, title, image }: ProjectButtonProps) => {
+const ProjectButton = ({
+  slug,
+  title,
+  image,
+  handleClick,
+}: ProjectButtonProps) => {
   return (
     <a
       href={`#${slug}`}
       className="group"
+      onClick={(e) => {
+        e.preventDefault()
+        handleClick(slug)
+      }}
       data-project-button
       data-analytics-category="Navigation"
       data-analytics-action="click"
