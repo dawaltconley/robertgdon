@@ -8,6 +8,12 @@ interface ProjectViewProps {
 
 const ProjectView = ({ project }: ProjectViewProps) => {
   const hasColumns = project.type === 'youtube' || project.type === 'vimeo'
+  const analytics = {
+    'data-analytics-category': 'Audio',
+    'data-analytics-action': 'click',
+    'data-analytics-label': `Listened to ${project.title}`,
+  }
+
   return (
     <div
       id="project-view"
@@ -34,12 +40,33 @@ const ProjectView = ({ project }: ProjectViewProps) => {
           }`}
           data-project-content
         >
-          <ProjectEmbed
-            title={project.title}
-            link={project.link}
-            type={project.type}
-            tralbumId={project.tralbumId}
-          />
+          {project.type === 'page' ? (
+            <a
+              className="group relative mb-md block overflow-hidden"
+              href={project.link.toString()}
+              target="_blank"
+              {...analytics}
+            >
+              <img
+                className="group-hover:blur-sm"
+                src={project.image}
+                alt={project.title}
+              />
+              <div className="absolute inset-0 flex flex-col bg-neutral-800/75 p-md text-center text-white opacity-0 group-hover:opacity-100">
+                <span className="margin-auto">Visit Site</span>
+              </div>
+            </a>
+          ) : (
+            <ProjectEmbed
+              title={project.title}
+              link={project.link}
+              type={project.type}
+              tralbumId={project.tralbumId}
+              loading="lazy"
+              seamless
+              {...analytics}
+            />
+          )}
 
           <div>
             <h3 className="font-caps text-[2em] uppercase">{project.title}</h3>

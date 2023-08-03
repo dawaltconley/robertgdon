@@ -1,4 +1,8 @@
-import type { FunctionComponent, ReactNode } from 'react'
+import type {
+  FunctionComponent,
+  ReactNode,
+  ComponentPropsWithoutRef,
+} from 'react'
 import Loader from './Loader'
 
 interface ContainerProps {
@@ -17,10 +21,10 @@ const Container = ({ aspect, children }: ContainerProps) => (
   </div>
 )
 
-interface ProjectEmbedProps {
+interface ProjectEmbedProps extends ComponentPropsWithoutRef<'iframe'> {
   title: string
   link: string | URL
-  type: 'bandcamp' | 'soundcloud' | 'youtube' | 'vimeo' | 'page'
+  type: 'bandcamp' | 'soundcloud' | 'youtube' | 'vimeo'
   tralbumId?: string
 }
 
@@ -29,13 +33,9 @@ const ProjectEmbed: FunctionComponent<ProjectEmbedProps> = ({
   link,
   type,
   tralbumId,
+  ...props
 }) => {
   const url = new URL(link)
-  const analytics = {
-    'data-analytics-category': 'Audio',
-    'data-analytics-action': 'click',
-    'data-analytics-label': `Listened to ${title}`,
-  }
 
   switch (type) {
     case 'bandcamp':
@@ -50,9 +50,7 @@ const ProjectEmbed: FunctionComponent<ProjectEmbedProps> = ({
               .find(
                 Boolean,
               )}=${tralbumId}/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/`}
-            seamless
-            loading="lazy"
-            {...analytics}
+            {...props}
           >
             <a href={url.href}>{title}</a>
           </iframe>
@@ -64,9 +62,7 @@ const ProjectEmbed: FunctionComponent<ProjectEmbedProps> = ({
           <iframe
             className="w-full"
             src={`https://w.soundcloud.com/player/?url=${url.href}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true`}
-            seamless
-            loading="lazy"
-            {...analytics}
+            {...props}
           ></iframe>
         </Container>
       )
@@ -76,10 +72,8 @@ const ProjectEmbed: FunctionComponent<ProjectEmbedProps> = ({
           <iframe
             className="w-full"
             src={url.href.replace('/watch?v=', '/embed/')}
-            loading="lazy"
             allowFullScreen
-            seamless
-            {...analytics}
+            {...props}
           ></iframe>
         </Container>
       )
@@ -90,29 +84,9 @@ const ProjectEmbed: FunctionComponent<ProjectEmbedProps> = ({
             className="w-full"
             src={`https://player.vimeo.com/video${url.pathname}?title=0&byline=0&portrait=0`}
             allowFullScreen
-            seamless
-            loading="lazy"
-            {...analytics}
+            {...props}
           ></iframe>
         </Container>
-      )
-    case 'page':
-      return (
-        <a
-          className="group relative mb-md block overflow-hidden"
-          href={url.href}
-          target="_blank"
-          {...analytics}
-        >
-          <img
-            className="group-hover:blur-sm"
-            src="{{ image_display }}"
-            alt={title}
-          />
-          <div className="absolute inset-0 flex flex-col bg-neutral-800/75 p-md text-center text-white opacity-0 group-hover:opacity-100">
-            <span className="margin-auto">Visit Site</span>
-          </div>
-        </a>
       )
   }
 }
