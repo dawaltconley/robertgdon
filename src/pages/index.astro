@@ -1,11 +1,19 @@
 ---
 import Layout from '../layouts/Base.astro'
 import Footer from '../components/Footer.astro'
+import ProjectButton from '../components/ProjectButton'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 import { client } from '@tina/__generated__/client'
 const { data } = await client.queries.site({ relativePath: 'site.yml' })
 const { title, description, bio } = data.site
+
+const projectsResponse = await client.queries.projectConnection()
+const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
+  slug: post?.node?._sys.filename || 'BAD_VAL',
+  title: post?.node?.title || 'BAD_VAL',
+  image: post?.node?.image || 'BAD_VAL',
+}))
 ---
 
 <Layout
@@ -72,8 +80,10 @@ const { title, description, bio } = data.site
         Projects
       </h2>
 
-      <div class="mb-lg contains-3d-deep">
+      <div class="mb-lg contains-3d-deep grid grid-cols-3 gap-xs">
         {
+          projects && projects.map((p) => <ProjectButton {...p} />)
+
           /*
         Project buttons
 
