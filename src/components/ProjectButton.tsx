@@ -1,8 +1,11 @@
+import classNames from 'classnames'
+
 interface ProjectButtonProps {
   slug: string
   title: string
   image: string
   handleClick: (slug: string) => void
+  isActive?: boolean
 }
 
 const ProjectButton = ({
@@ -10,11 +13,14 @@ const ProjectButton = ({
   title,
   image,
   handleClick,
+  isActive,
 }: ProjectButtonProps) => {
   return (
     <a
       href={`#${slug}`}
-      className="group"
+      className={classNames('group delay-500 duration-500', {
+        'flip-x': isActive,
+      })}
       onClick={(e) => {
         e.preventDefault()
         handleClick(slug)

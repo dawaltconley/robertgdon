@@ -56,6 +56,7 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
             <ProjectButton
               key={p.slug}
               handleClick={handlePickProject}
+              isActive={p.slug === current?.slug}
               {...p}
             />
           ))}
