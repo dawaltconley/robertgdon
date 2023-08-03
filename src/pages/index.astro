@@ -1,19 +1,45 @@
 ---
+import type { Project } from '../components/ProjectGrid'
 import Layout from '../layouts/Base.astro'
 import Footer from '../components/Footer.astro'
+import ProjectView from '../components/ProjectView'
 import ProjectGrid from '../components/ProjectGrid'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
+import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
+
 const { data } = await client.queries.site({ relativePath: 'site.yml' })
 const { title, description, bio } = data.site
 
+const validTypes: Readonly<Project['type'][]> = [
+  'bandcamp',
+  'soundcloud',
+  'youtube',
+  'vimeo',
+  'page',
+] as const
+const isProjectType = (s: string): s is Project['type'] =>
+  validTypes.includes(s as Project['type'])
+
+function isNotEmpty<T>(v: T | null | undefined): v is T {
+  return v !== null && v !== undefined
+}
+
 const projectsResponse = await client.queries.projectConnection()
-const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
-  slug: post?.node?._sys.filename || 'BAD_VAL',
-  title: post?.node?.title || 'BAD_VAL',
-  image: post?.node?.image || 'BAD_VAL',
-}))
+const projects = projectsResponse.data.projectConnection.edges
+  ?.map<Project | null>(
+    (p) =>
+      (p?.node &&
+        isProjectType(p.node.media) && {
+          ...pick(p.node, ['title', 'description', 'image', 'link']),
+          slug: p.node._sys.filename,
+          type: p.node.media,
+          tralbumId: p.node.tralbum_id || undefined,
+        }) ||
+      null,
+  )
+  .filter(isNotEmpty)
 ---
 
 <Layout
@@ -54,6 +80,7 @@ const projects = projectsResponse.data.projectConnection.edges?.map((post) => ({
       class="overflow-hidden t-project-view transform-gpu no-backface"
       data-project-view
     >
+      {projects && projects.map((p) => <ProjectView project={p} />)}
       {
         /*
       Projects data / text
