@@ -42,7 +42,7 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
           className="t-project-view no-backface transform-gpu overflow-hidden"
           data-project-view
         >
-          {current && <ProjectView project={current} />}
+          {current && <ProjectView key={current.slug} project={current} />}
         </div>
       </div>
 
