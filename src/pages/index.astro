@@ -1,10 +1,12 @@
 ---
 import type { Category, Project } from '../components/ProjectApp'
+import path from 'node:path'
 import Layout from '../layouts/Base.astro'
 import ProjectApp from '../components/ProjectApp'
 import Image from '../components/Image.astro'
 import Footer from '../components/Footer.astro'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
+import imageConfig from '../lib/node/image-config'
 
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
@@ -29,26 +31,38 @@ function isNotEmpty<T>(v: T | null | undefined): v is T {
 const categories: Category[] = [],
   projects: Record<string, Project> = {}
 
-projectSort
-  ?.filter(isNotEmpty)
-  .forEach(({ category, projects: sortedProjects }) => {
-    const cat: Category = {
-      name: category,
-      projects: [],
-    }
-    sortedProjects.forEach(({ project: p }, j) => {
-      const slug = p._sys.filename
-      cat.projects.push(slug)
-      projects[slug] = {
-        ...pick(p, ['title', 'description', 'image', 'link']),
-        slug,
-        index: j,
-        type: isProjectType(p.media) ? p.media : 'page',
-        tralbumId: p.tralbum_id || undefined,
+const processing =
+  projectSort
+    ?.filter(isNotEmpty)
+    .map(({ category, projects: sortedProjects }) => {
+      const cat: Category = {
+        name: category,
+        projects: [],
       }
-    })
-    categories.push(cat)
-  })
+      const processing = sortedProjects.map(async ({ project: p }, j) => {
+        const slug = p._sys.filename
+        const imagePath = path.resolve('./public', `.${p.image}`)
+        cat.projects.push(slug)
+        projects[slug] = {
+          ...pick(p, ['title', 'description', 'link']),
+          slug,
+          index: j,
+          type: isProjectType(p.media) ? p.media : 'page',
+          tralbumId: p.tralbum_id || undefined,
+          image: await imageConfig.metadataFromSizes(imagePath, {
+            sizes:
+              p.media === 'page' // projects with this media type display a larger image
+                ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
+                : '(min-width: 2000px) 10vw, (min-width: 1000px) 160px, (min-width: 800px) 178px, 50vw',
+            alt: p.title,
+          }),
+        }
+      })
+      categories.push(cat)
+      return Promise.all(processing)
+    }) || []
+
+await Promise.all(processing)
 ---
 
 <Layout

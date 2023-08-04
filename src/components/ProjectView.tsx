@@ -1,5 +1,6 @@
 import type { Project } from './ProjectApp'
 import ProjectEmbed from './ProjectEmbed'
+import ResponsiveImage from './Image'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
@@ -17,6 +18,9 @@ interface ProjectViewProps {
 }
 
 const nullFunc = () => {}
+
+const smallestImage = (project: Project): string =>
+  Object.values(project.image.metadata)[0][0].url
 
 const ProjectView = ({
   project,
@@ -47,7 +51,7 @@ const ProjectView = ({
       onReady()
       onHeightChange(content.current.scrollHeight)
     })
-    img.src = project.image
+    img.src = smallestImage(project)
 
     let timeout: number
     const onResize = throttle(
@@ -104,13 +108,12 @@ const ProjectView = ({
             target="_blank"
             {...analytics}
           >
-            <img
-              className="group-hover:blur-sm"
-              src={project.image}
-              alt={project.title}
+            <ResponsiveImage
+              {...project.image}
+              className="duration-300 group-hover:blur-sm"
             />
-            <div className="absolute inset-0 flex flex-col bg-neutral-800/75 p-md text-center text-white opacity-0 group-hover:opacity-100">
-              <span className="margin-auto">Visit Site</span>
+            <div className="absolute inset-0 flex flex-col bg-neutral-800/75 p-md text-center text-white opacity-0 duration-300 group-hover:opacity-100">
+              <span className="m-auto">Visit Site</span>
             </div>
           </a>
         ) : (

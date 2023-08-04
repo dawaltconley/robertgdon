@@ -1,3 +1,4 @@
+import type { ImageProps } from './Image'
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useRef, memo } from 'react'
@@ -10,7 +11,7 @@ export interface Project {
   date?: string | Date
   title: string
   description: any
-  image: string
+  image: ImageProps
   link: string | URL
   type: 'bandcamp' | 'soundcloud' | 'youtube' | 'vimeo' | 'page'
   tralbumId?: string

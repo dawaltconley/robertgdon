@@ -1,9 +1,10 @@
+import Image, { ImageProps } from './Image'
 import classNames from 'classnames'
 
 interface ProjectButtonProps {
   slug: string
   title: string
-  image: string
+  image: ImageProps
   handleClick: (slug: string | null) => void
   isActive?: boolean
 }
@@ -34,13 +35,14 @@ const ProjectButton = ({
         className="layer-children relative aspect-square text-white delay-500 duration-500"
         data-project-button-content
       >
-        <div className="no-backface overflow-hidden">
-          <img
-            className="h-full w-full overflow-hidden object-cover duration-300 group-hover:blur-sm"
-            src={image}
-            alt={title}
-          />
-        </div>
+        <Image
+          {...image}
+          className="no-backface overflow-hidden"
+          imgProps={{
+            className:
+              'h-full w-full overflow-hidden object-cover duration-300 group-hover:blur-sm',
+          }}
+        />
         <div className="no-backface flex flex-col bg-neutral-900/75 p-xs text-center opacity-0 duration-300 group-hover:opacity-100">
           <span className="m-auto">{title}</span>
         </div>
