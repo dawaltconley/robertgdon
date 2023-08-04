@@ -56,10 +56,6 @@ const ProjectApp = ({
     setViewHeight(h)
   }
 
-  const getRelativeIndex = (from: Project, to: Project): number => {
-    return from.index - to.index
-  }
-
   const projectsFlat = categories
     .map((c) => c.projects)
     .flat()
@@ -96,23 +92,19 @@ const ProjectApp = ({
                 <Transition key={p.slug} timeout={transition}>
                   {(state) => {
                     let position: 'center' | 'left' | 'right'
-                    let relativeTo: Project | undefined
+                    let relativeTo: Project = p
 
-                    if (isCurrent) {
+                    if (isCurrent && last) {
                       relativeTo = last
-                    } else if (isLast && state === 'exiting') {
+                    } else if (isLast && current && state === 'exiting') {
                       relativeTo = current
                     }
-                    let relative = getRelativeIndex(p, relativeTo ?? p)
 
-                    if (isCurrent && isReady) {
+                    if ((isCurrent && isReady) || p.slug === relativeTo.slug) {
                       position = 'center'
-                    } else if (relative > 0) {
-                      position = 'right'
-                    } else if (relative < 0) {
-                      position = 'left'
                     } else {
-                      position = 'center'
+                      position =
+                        p.index - relativeTo.index < 0 ? 'left' : 'right'
                     }
 
                     return (
