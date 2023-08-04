@@ -2,6 +2,7 @@ import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useRef, memo } from 'react'
 import { Transition, TransitionGroup } from 'react-transition-group'
+import classNames from 'classnames'
 
 export interface Project {
   slug: string
@@ -53,7 +54,12 @@ const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
       <div
         ref={view}
         id="project-view"
-        className="no-backface layer-children transform-gpu overflow-hidden duration-1000 ease-out"
+        className={classNames(
+          'no-backface transform-gpu overflow-hidden duration-1000 ease-out',
+          {
+            'layer-children': viewHeight !== null,
+          },
+        )}
         style={
           viewHeight === null
             ? {

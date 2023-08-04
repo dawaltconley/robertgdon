@@ -70,15 +70,12 @@ const ProjectView = ({
     <div
       ref={body}
       id={project.slug}
-      className={classNames(
-        'no-backface min-h-full w-full overflow-hidden',
-        noJs ? 'relative hidden target:block' : 'absolute inset-0',
-        {
-          'translate-x-full': position === 'right',
-          'translate-x-0': position === 'center',
-          '-translate-x-full': position === 'left',
-        },
-      )}
+      className={classNames('no-backface min-h-full w-full overflow-hidden', {
+        'relative hidden target:block': noJs,
+        'translate-x-full': position === 'right',
+        'translate-x-0': position === 'center',
+        '-translate-x-full': position === 'left',
+      })}
       style={{
         transitionDuration: timeout ? timeout.toString() + 'ms' : '0s',
       }}
