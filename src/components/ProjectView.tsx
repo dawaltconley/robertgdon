@@ -42,7 +42,7 @@ const ProjectView = ({
   useEffect(() => {
     const img = image.current
     img.addEventListener('load', () => {
-      if (!canvas.current || !body.current || !content.current) return
+      if (!canvas.current || !body.current || !content.current) return onReady()
       drawToCanvas(canvas.current, body.current, content.current, image.current)
       onReady()
       onHeightChange(content.current.scrollHeight)
