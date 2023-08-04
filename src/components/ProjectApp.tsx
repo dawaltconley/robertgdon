@@ -28,7 +28,7 @@ const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
 
   const handlePickProject = (slug: string | null): void => {
     const selected = projects.find((p) => p.slug === slug)
-    setLast(current)
+    setLast(selected && current)
     setCurrent(selected)
     setIsReady(false) // should probably use setCurrent or setNext or something instead
     if (!selected) close()
