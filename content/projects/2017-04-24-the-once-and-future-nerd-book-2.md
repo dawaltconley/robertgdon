@@ -1,7 +1,7 @@
 ---
 date: '2017-03-24'
 published: true
-title: The Once and Future Nerd Book&nbsp;2
+title: The Once and Future Nerd Book 2
 link: 'http://onceandfuturenerd.com/'
 media: page
 image: /media/project-images/onceandfuturenerd.jpg
