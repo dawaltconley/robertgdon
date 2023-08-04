@@ -3,14 +3,17 @@ import ProjectEmbed from './ProjectEmbed'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, RefObject } from 'react'
 import throttle from 'lodash/throttle'
 
 interface ProjectViewProps {
   project: Project
+  projectRef?: RefObject<HTMLDivElement>
   noJs?: boolean
   onReady?: () => void
   onHeightChange?: (height: number | null) => void
+  position?: 'center' | 'left' | 'right'
+  timeout?: number
 }
 
 const nullFunc = () => {}
@@ -20,9 +23,12 @@ const ProjectView = ({
   noJs,
   onReady = nullFunc,
   onHeightChange = nullFunc,
+  projectRef,
+  position,
+  timeout,
 }: ProjectViewProps) => {
   const canvas = useRef<HTMLCanvasElement>(null)
-  const body = useRef<HTMLDivElement>(null)
+  const body = projectRef || useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
   const image = useRef<HTMLImageElement>(new Image())
 
@@ -65,11 +71,17 @@ const ProjectView = ({
       ref={body}
       id={project.slug}
       className={classNames(
-        'no-backface relative min-h-full w-full overflow-hidden duration-1000',
+        'no-backface min-h-full w-full overflow-hidden',
+        noJs ? 'relative hidden target:block' : 'absolute inset-0',
         {
-          'hidden target:block': noJs,
+          'translate-x-full': position === 'right',
+          'translate-x-0': position === 'center',
+          '-translate-x-full': position === 'left',
         },
       )}
+      style={{
+        transitionDuration: timeout ? timeout.toString() + 'ms' : '0s',
+      }}
       data-project
       data-index="{{ include.index }}"
     >
