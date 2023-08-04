@@ -80,15 +80,12 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
   )
 }
 
-const NoScriptFallback = memo(({ projects }: { projects: Project[] }) => {
-  console.log('render noscript')
-  return (
-    <>
-      {projects.map((p) => (
-        <ProjectView key={p.slug} project={p} noJs />
-      ))}
-    </>
-  )
-})
+const NoScriptFallback = memo(({ projects }: { projects: Project[] }) => (
+  <>
+    {projects.map((p) => (
+      <ProjectView key={p.slug} project={p} noJs />
+    ))}
+  </>
+))
 
 export default ProjectApp
