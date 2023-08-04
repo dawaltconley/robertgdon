@@ -156,6 +156,7 @@ await Promise.all(processing)
 
 <style lang="scss">
   @use 'sass:color';
+  @use 'sass:math';
   @use '@dawaltconley/responsive-images';
 
   :global(.container) {
@@ -202,6 +203,21 @@ await Promise.all(processing)
   .subtitle {
     font-size: 42px;
     font-weight: 400;
+  }
+
+  @media screen and (max-width: theme('screens.mobile')) {
+    $title-font-size: 14.45vmin;
+
+    .title {
+      margin-bottom: 0.8vmin;
+      padding-bottom: 1vmin;
+      font-size: 14.45vmin;
+      border-bottom-width: 0.4vmin;
+    }
+
+    .subtitle {
+      font-size: math.div($title-font-size * 42, 88);
+    }
   }
 
   .scroll-arrow {
