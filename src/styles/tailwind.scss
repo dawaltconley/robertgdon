@@ -30,6 +30,20 @@
     display: inline-block;
     vertical-align: -0.125em;
   }
+
+  .brand-underline {
+    @extend %relative;
+
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-0 right-0 mx-auto w-0 border-b-2 border-brand opacity-0;
+      transition: inherit;
+    }
+
+    &--active::after {
+      @apply w-full opacity-100;
+    }
+  }
 }
 
 @layer utilities {

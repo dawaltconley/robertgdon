@@ -1,5 +1,5 @@
 ---
-import type { Project } from '../components/ProjectApp'
+import type { Category, Project } from '../components/ProjectApp'
 import Layout from '../layouts/Base.astro'
 import ProjectApp from '../components/ProjectApp'
 import Footer from '../components/Footer.astro'
@@ -9,7 +9,7 @@ import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
 
 const { data } = await client.queries.site({ relativePath: 'site.yml' })
-const { title, description, bio } = data.site
+const { title, description, bio, projects: projectSort } = data.site
 
 const validTypes: Readonly<Project['type'][]> = [
   'bandcamp',
@@ -25,20 +25,29 @@ function isNotEmpty<T>(v: T | null | undefined): v is T {
   return v !== null && v !== undefined
 }
 
-const projectsResponse = await client.queries.projectConnection()
-const projects = projectsResponse.data.projectConnection.edges
-  ?.map<Project | null>(
-    (p) =>
-      (p?.node &&
-        isProjectType(p.node.media) && {
-          ...pick(p.node, ['title', 'description', 'image', 'link']),
-          slug: p.node._sys.filename,
-          type: p.node.media,
-          tralbumId: p.node.tralbum_id || undefined,
-        }) ||
-      null,
-  )
-  .filter(isNotEmpty)
+const categories: Category[] = [],
+  projects: Record<string, Project> = {}
+
+projectSort
+  ?.filter(isNotEmpty)
+  .forEach(({ category, projects: sortedProjects }) => {
+    const cat: Category = {
+      name: category,
+      projects: [],
+    }
+    sortedProjects.forEach(({ project: p }, j) => {
+      const slug = p._sys.filename
+      cat.projects.push(slug)
+      projects[slug] = {
+        ...pick(p, ['title', 'description', 'image', 'link']),
+        slug,
+        index: j,
+        type: isProjectType(p.media) ? p.media : 'page',
+        tralbumId: p.tralbum_id || undefined,
+      }
+    })
+    categories.push(cat)
+  })
 ---
 
 <Layout
@@ -74,7 +83,11 @@ const projects = projectsResponse.data.projectConnection.edges
       </div>
     </div>
 
-    {projects && <ProjectApp client:load projects={projects} />}
+    {
+      projects && (
+        <ProjectApp client:load projects={projects} categories={categories} />
+      )
+    }
 
     <div id="bio" class="container mx-auto my-lg">
       <div class="bio flex flex-row">

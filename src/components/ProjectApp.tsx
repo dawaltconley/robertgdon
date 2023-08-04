@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 export interface Project {
   slug: string
+  index: number
   date?: string | Date
   title: string
   description: any
@@ -15,20 +16,31 @@ export interface Project {
   tralbumId?: string
 }
 
+export interface Category {
+  name: string
+  projects: string[]
+}
+
 interface ProjectAppProps {
-  projects: Project[]
+  projects: Record<string, Project>
+  categories: Category[]
   transition?: number
 }
 
-const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
+const ProjectApp = ({
+  projects,
+  categories,
+  transition = 1000,
+}: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
+  const [category, setCategory] = useState(categories[0])
   const [current, setCurrent] = useState<Project>()
   const [last, setLast] = useState<Project>()
   const [isReady, setIsReady] = useState(false)
   const [viewHeight, setViewHeight] = useState<number | null>(0)
 
   const handlePickProject = (slug: string | null): void => {
-    const selected = projects.find((p) => p.slug === slug)
+    const selected = slug ? projects[slug] : undefined
     setLast(selected && current)
     setCurrent(selected)
     setIsReady(false) // should probably use setCurrent or setNext or something instead
@@ -45,9 +57,13 @@ const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
   }
 
   const getRelativeIndex = (from: Project, to: Project): number => {
-    const slugs = projects.map((p) => p.slug)
-    return slugs.indexOf(from.slug) - slugs.indexOf(to.slug)
+    return from.index - to.index
   }
+
+  const projectsFlat = categories
+    .map((c) => c.projects)
+    .flat()
+    .map((p) => projects[p])
 
   return (
     <>
@@ -72,7 +88,7 @@ const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
         data-project-view
       >
         <TransitionGroup component={null}>
-          {projects.map((p) => {
+          {projectsFlat.map((p) => {
             const isCurrent = current && p.slug === current.slug
             const isLast = last && p.slug === last.slug
             return (
@@ -120,21 +136,49 @@ const ProjectApp = ({ projects, transition = 1000 }: ProjectAppProps) => {
       </div>
 
       <noscript>
-        <NoScriptFallback projects={projects} />
+        <NoScriptFallback projects={projectsFlat} />
       </noscript>
 
-      <div id="projects" className="container mx-auto my-lg">
-        <h2 className="border-b border-neutral-800 pb-xs font-caps text-[2em] uppercase">
+      <div id="projects" className="container mx-auto my-lg mb-md">
+        <h2 className="mb-0 border-b-2 border-neutral-800 pb-xs font-caps text-[2em] uppercase">
           Projects
         </h2>
 
+        <div className="mb-md flex justify-center">
+          {categories.map((c) => {
+            const isActive = c.name === category.name
+            return (
+              <button
+                className={classNames(
+                  'group px-3 pb-3 pt-2 font-caps text-2xl leading-none duration-300',
+                  isActive
+                    ? 'bg-neutral-800 text-neutral-100'
+                    : 'hover:decoration-b-2 bg-transparent',
+                )}
+                onClick={() => setCategory(c)}
+              >
+                <span
+                  className={classNames(
+                    'brand-underline inline-block text-center duration-[inherit] after:-bottom-1 after:border-b-2',
+                    {
+                      'group-hover:brand-underline--active': !isActive,
+                    },
+                  )}
+                >
+                  {c.name}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
         <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
-          {projects.map((p) => (
+          {category.projects.map((p) => (
             <ProjectButton
-              key={p.slug}
+              key={p}
               handleClick={handlePickProject}
-              isActive={p.slug === current?.slug}
-              {...p}
+              isActive={p === current?.slug}
+              {...projects[p]}
             />
           ))}
         </div>
