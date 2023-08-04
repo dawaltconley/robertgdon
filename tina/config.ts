@@ -17,6 +17,11 @@ export default defineConfig({
       publicFolder: 'public',
     },
   },
+  search: {
+    tina: {
+      indexerToken: '***REMOVED***',
+    },
+  },
   schema: {
     collections: [
       {
