@@ -2,6 +2,7 @@
 import type { Category, Project } from '../components/ProjectApp'
 import Layout from '../layouts/Base.astro'
 import ProjectApp from '../components/ProjectApp'
+import Image from '../components/Image.astro'
 import Footer from '../components/Footer.astro'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
@@ -101,13 +102,15 @@ projectSort
           <TinaMarkdown content={bio} />
         </div>
 
-        <div class="headshot-container relative ml-md">
-          <img
-            class="absolute inset-0 w-full h-full object-fit-rob"
-            src="/media/headshot.jpg"
-            alt="headshot photo"
-          />
-        </div>
+        <Image
+          src="./public/media/headshot.jpg"
+          class="headshot-container relative ml-md"
+          alt="headshot photo"
+          sizes="(min-width: 2000px) 25vw, (min-width: 1000px) 432px, (min-width: 800px) 334px, (min-width: 600px) 540px, 100vw"
+          imgProps={{
+            class: 'laptop:absolute inset-0 w-full h-full object-fit-rob',
+          }}
+        />
       </div>
     </div>
 
@@ -207,14 +210,10 @@ projectSort
 
     .headshot-container {
       margin-left: 0;
-
-      & > img {
-        position: static;
-      }
     }
   }
 
-  .object-fit-rob {
+  :global(.object-fit-rob) {
     $pos: 70% 0%;
     object-fit: cover;
     object-position: $pos;
