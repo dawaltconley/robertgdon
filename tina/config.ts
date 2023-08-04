@@ -137,6 +137,48 @@ export default defineConfig({
             name: 'description',
           },
           {
+            type: 'object',
+            label: 'Project Order',
+            name: 'projects',
+            list: true,
+            ui: {
+              itemProps: (item) => ({
+                label: item.category ?? 'New Category',
+              }),
+            },
+            fields: [
+              {
+                type: 'string',
+                label: 'Category',
+                name: 'category',
+                required: true,
+              },
+              {
+                type: 'object',
+                label: 'Projects',
+                name: 'projects',
+                list: true,
+                required: true,
+                ui: {
+                  itemProps: (item) => {
+                    return {
+                      label: item.project ?? 'Select Project',
+                    }
+                  },
+                },
+                fields: [
+                  {
+                    type: 'reference',
+                    label: 'Project',
+                    name: 'project',
+                    required: true,
+                    collections: ['project'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
             type: 'rich-text',
             label: 'Bio',
             name: 'bio',

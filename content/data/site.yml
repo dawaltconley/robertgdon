@@ -97,9 +97,41 @@ contact:
     link: 'mailto:robertgdon@gmail.com'
   - icon: phone
     link: 'tel:+13147618067'
-bio: |-
+bio: |
   Robert is an audio professional based out of Brooklyn, New York offering
   production, engineering, editing, mixing, and music composition services.
   When he’s not hunched over his computer working on achieving the best sounds
   possible, you can find him walking through Prospect Park or perfecting
   recipes in the kitchen. Get in touch below!
+projects:
+  - category: Commercial
+    projects:
+      - project: content/projects/2023-07-25-switch.md
+      - project: content/projects/2023-07-25-dell-businesses-we-love.md
+      - project: content/projects/2023-07-25-duke-lemur-center.md
+      - project: content/projects/2023-07-25-living-popups.md
+      - project: content/projects/2017-07-24-coppertone-tennis.md
+      - project: content/projects/2017-08-03-coppertone-pool.md
+      - project: content/projects/2023-07-25-google-belonging.md
+      - project: content/projects/2018-09-04-queen-of-the-night.md
+      - project: content/projects/2017-04-24-the-once-and-future-nerd-book-2.md
+  - category: Music
+    projects:
+      - project: content/projects/2017-04-24-push-it-back.md
+      - project: content/projects/2018-09-04-threes.md
+      - project: content/projects/2018-04-24-same-outfit.md
+      - project: content/projects/2019-01-09-talk-to-u.md
+      - project: content/projects/2017-04-24-nightside.md
+      - project: content/projects/2017-04-24-quiet-pleas.md
+      - project: content/projects/2017-09-12-the-whole.md
+      - project: content/projects/2017-04-24-voice-memos.md
+      - project: content/projects/2017-04-24-scram-jones.md
+      - project: content/projects/2017-04-24-humanly-possible.md
+      - project: content/projects/2017-04-24-at-t-mobilizing-your-world.md
+      - project: content/projects/2017-04-24-we-really-ought-to-get-jobs.md
+      - project: content/projects/2017-04-24-slightly-elevated.md
+      - project: content/projects/2017-04-24-no-excuses-wednesdays.md
+      - project: content/projects/2017-04-24-liriope.md
+      - project: content/projects/2017-04-24-honestly-honesty.md
+      - project: content/projects/2017-04-24-be-mine.md
+      - project: content/projects/2017-04-24-pretend-we-re-friends.md
