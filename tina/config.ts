@@ -101,6 +101,10 @@ export default defineConfig({
             label: 'Image',
             name: 'image',
             required: true,
+            ui: {
+              description:
+                'For best results, images should be no wider than 16/9.',
+            },
           },
           {
             type: 'boolean',
