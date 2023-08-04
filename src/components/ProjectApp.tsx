@@ -34,6 +34,8 @@ const ProjectApp = ({
   transition = 1000,
 }: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
+  const animating = useRef(0)
+
   const [category, setCategory] = useState(categories[0])
   const [current, setCurrent] = useState<Project>()
   const [last, setLast] = useState<Project>()
@@ -41,6 +43,7 @@ const ProjectApp = ({
   const [viewHeight, setViewHeight] = useState<number | null>(0)
 
   const handlePickProject = (slug: string | null): void => {
+    if (animating.current > 0) return
     const selected = slug ? projects[slug] : undefined
     setLast(selected && current)
     setCurrent(selected)
@@ -90,7 +93,14 @@ const ProjectApp = ({
             const isLast = last && p.slug === last.slug
             return (
               (isCurrent || (isLast && !isReady)) && (
-                <Transition key={p.slug} timeout={transition}>
+                <Transition
+                  key={p.slug}
+                  timeout={transition}
+                  onEnter={() => animating.current++}
+                  onEntered={() => animating.current--}
+                  onExit={() => animating.current++}
+                  onExited={() => animating.current--}
+                >
                   {(state) => {
                     let position: 'center' | 'left' | 'right'
                     let relativeTo: Project = p
