@@ -103,7 +103,7 @@ export default defineConfig({
             required: true,
             ui: {
               description:
-                'For best results, images should be no wider than 16/9.',
+                'For best results, images should be at least 960px wide and cropped to a square. If uncropped, their aspect ratio should be no wider than 16/9.',
             },
           },
           {
