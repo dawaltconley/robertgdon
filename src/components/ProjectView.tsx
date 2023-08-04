@@ -37,7 +37,7 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
       ref={body}
       id={project.slug}
       className={classNames(
-        'relative w-full duration-1000 overflow-hidden no-backface {{ bg_img }}',
+        'no-backface relative min-h-full w-full overflow-hidden duration-1000',
         {
           'hidden target:block': noJs,
         },

@@ -33,7 +33,7 @@
     "tinacms": "^1.5.17"
   },
   "devDependencies": {
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "prettier-plugin-astro": "^0.11.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "stylelint": "^15.10.2",

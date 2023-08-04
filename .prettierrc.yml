@@ -4,3 +4,5 @@ plugins:
   - prettier-plugin-astro
   - prettier-plugin-tailwindcss
 pluginSearchDirs: false
+tailwindFunctions:
+  - classNames
