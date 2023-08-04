@@ -41,7 +41,9 @@ const processing =
       }
       const processing = sortedProjects.map(async ({ project: p }, j) => {
         const slug = p._sys.filename
-        const imagePath = path.resolve('./public', `.${p.image}`)
+        const imagePath = import.meta.env.PROD
+          ? p.image
+          : path.resolve('./public', `.${p.image}`)
         cat.projects.push(slug)
         projects[slug] = {
           ...pick(p, ['title', 'description', 'link']),
