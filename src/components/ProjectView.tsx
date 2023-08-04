@@ -4,11 +4,13 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
 import { useEffect, useRef } from 'react'
+import throttle from 'lodash/throttle'
 
 interface ProjectViewProps {
   project: Project
   noJs?: boolean
-  onReady?: (height: number) => void
+  onReady?: () => void
+  onHeightChange?: (height: number | null) => void
 }
 
 const nullFunc = () => {}
@@ -17,6 +19,7 @@ const ProjectView = ({
   project,
   noJs,
   onReady = nullFunc,
+  onHeightChange = nullFunc,
 }: ProjectViewProps) => {
   const canvas = useRef<HTMLCanvasElement>(null)
   const body = useRef<HTMLDivElement>(null)
@@ -35,9 +38,26 @@ const ProjectView = ({
     img.addEventListener('load', () => {
       if (!canvas.current || !body.current || !content.current) return
       drawToCanvas(canvas.current, body.current, content.current, image.current)
-      onReady(content.current.scrollHeight)
+      onReady()
+      onHeightChange(content.current.scrollHeight)
     })
     img.src = project.image
+
+    let timeout: number
+    const onResize = throttle(
+      () => {
+        window.clearTimeout(timeout)
+        onHeightChange(null)
+        timeout = window.setTimeout(() => {
+          if (!content.current) return
+          onHeightChange(content.current.scrollHeight)
+        }, 200)
+      },
+      150,
+      { leading: true },
+    )
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   return (

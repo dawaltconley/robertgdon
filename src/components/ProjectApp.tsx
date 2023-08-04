@@ -20,7 +20,7 @@ interface ProjectAppProps {
 const ProjectApp = ({ projects }: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState<Project>()
-  const [viewHeight, setViewHeight] = useState(0)
+  const [viewHeight, setViewHeight] = useState<number | null>(0)
 
   const handlePickProject = (slug: string | null): void => {
     const selected = projects.find((p) => p.slug === slug)
@@ -33,7 +33,7 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
 
   const close = () => setViewHeight(0)
 
-  const handleProjectReady = (h: number): void => {
+  const handleHeightChange = (h: number | null): void => {
     setViewHeight(h)
   }
 
@@ -43,16 +43,22 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
         ref={view}
         id="project-view"
         className="no-backface transform-gpu overflow-hidden duration-1000 ease-out"
-        style={{
-          height: viewHeight,
-        }}
+        style={
+          viewHeight === null
+            ? {
+                transitionDuration: '0s',
+              }
+            : {
+                height: viewHeight,
+              }
+        }
         data-project-view
       >
         {current && (
           <ProjectView
             key={current.slug}
             project={current}
-            onReady={handleProjectReady}
+            onHeightChange={handleHeightChange}
           />
         )}
         <noscript>
