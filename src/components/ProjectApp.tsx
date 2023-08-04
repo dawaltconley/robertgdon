@@ -20,13 +20,21 @@ interface ProjectAppProps {
 const ProjectApp = ({ projects }: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState<Project>()
+  const [viewHeight, setViewHeight] = useState(0)
 
   const handlePickProject = (slug: string | null): void => {
     const selected = projects.find((p) => p.slug === slug)
     setCurrent(selected)
+    if (!selected) close()
     if (!view.current) return
     const { top } = view.current.getBoundingClientRect()
     window.scrollTo(0, top + window.scrollY)
+  }
+
+  const close = () => setViewHeight(0)
+
+  const handleProjectReady = (h: number): void => {
+    setViewHeight(h)
   }
 
   return (
@@ -35,9 +43,18 @@ const ProjectApp = ({ projects }: ProjectAppProps) => {
         ref={view}
         id="project-view"
         className="no-backface transform-gpu overflow-hidden duration-1000 ease-out"
+        style={{
+          height: viewHeight,
+        }}
         data-project-view
       >
-        {current && <ProjectView key={current.slug} project={current} />}
+        {current && (
+          <ProjectView
+            key={current.slug}
+            project={current}
+            onReady={handleProjectReady}
+          />
+        )}
         <noscript>
           <NoScriptFallback projects={projects} />
         </noscript>

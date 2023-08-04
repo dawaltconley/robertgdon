@@ -8,9 +8,16 @@ import { useEffect, useRef } from 'react'
 interface ProjectViewProps {
   project: Project
   noJs?: boolean
+  onReady?: (height: number) => void
 }
 
-const ProjectView = ({ project, noJs }: ProjectViewProps) => {
+const nullFunc = () => {}
+
+const ProjectView = ({
+  project,
+  noJs,
+  onReady = nullFunc,
+}: ProjectViewProps) => {
   const canvas = useRef<HTMLCanvasElement>(null)
   const body = useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
@@ -28,6 +35,7 @@ const ProjectView = ({ project, noJs }: ProjectViewProps) => {
     img.addEventListener('load', () => {
       if (!canvas.current || !body.current || !content.current) return
       drawToCanvas(canvas.current, body.current, content.current, image.current)
+      onReady(content.current.scrollHeight)
     })
     img.src = project.image
   }, [])
