@@ -133,6 +133,10 @@ export default defineConfig({
             create: false,
             delete: false,
           },
+          router: ({ document }) => {
+            if (document._sys.filename === 'site') return '/'
+            return undefined
+          },
         },
         fields: [
           {
