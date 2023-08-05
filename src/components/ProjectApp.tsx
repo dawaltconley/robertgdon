@@ -11,7 +11,7 @@ export interface Project {
   date?: string | Date
   title: string
   description: any
-  image: ImageProps
+  image: string
   link: string | URL
   type: 'bandcamp' | 'soundcloud' | 'youtube' | 'vimeo' | 'page'
   tralbumId?: string
@@ -25,12 +25,14 @@ export interface Category {
 interface ProjectAppProps {
   projects: Record<string, Project>
   categories: Category[]
+  responsiveImages?: Record<string, ImageProps>
   transition?: number
 }
 
 const ProjectApp = ({
   projects,
   categories,
+  responsiveImages = {},
   transition = 1000,
 }: ProjectAppProps) => {
   const view = useRef<HTMLDivElement>(null)
@@ -128,6 +130,7 @@ const ProjectApp = ({
                         onHeightChange={
                           isCurrent ? handleHeightChange : undefined
                         }
+                        responsiveImages={responsiveImages}
                       />
                     )
                   }}
@@ -139,7 +142,7 @@ const ProjectApp = ({
       </div>
 
       <noscript>
-        <NoScriptFallback projects={projectsFlat} />
+        <NoScriptFallback projects={projectsFlat} images={responsiveImages} />
       </noscript>
 
       <div id="projects" className="container mx-auto my-lg mb-md">
@@ -176,26 +179,39 @@ const ProjectApp = ({
         </div>
 
         <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
-          {category.projects.map((p) => (
-            <ProjectButton
-              key={p}
-              handleClick={handlePickProject}
-              isActive={p === current?.slug}
-              {...projects[p]}
-            />
-          ))}
+          {category.projects.map((id) => {
+            const project = projects[id]
+            const image = responsiveImages[project.image] ?? project.image
+            return (
+              <ProjectButton
+                key={id}
+                handleClick={handlePickProject}
+                isActive={id === current?.slug}
+                {...project}
+                image={image}
+              />
+            )
+          })}
         </div>
       </div>
     </>
   )
 }
 
-const NoScriptFallback = memo(({ projects }: { projects: Project[] }) => (
-  <>
-    {projects.map((p) => (
-      <ProjectView key={p.slug} project={p} noJs />
-    ))}
-  </>
-))
+const NoScriptFallback = memo(
+  ({
+    projects,
+    images,
+  }: {
+    projects: Project[]
+    images: Record<string, ImageProps>
+  }) => (
+    <>
+      {projects.map((p) => (
+        <ProjectView key={p.slug} project={p} responsiveImages={images} noJs />
+      ))}
+    </>
+  ),
+)
 
 export default ProjectApp

@@ -1,6 +1,6 @@
 import type { Project } from './ProjectApp'
 import ProjectEmbed from './ProjectEmbed'
-import ResponsiveImage from './Image'
+import ResponsiveImage, { ImageProps } from './Image'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
@@ -10,6 +10,7 @@ import throttle from 'lodash/throttle'
 interface ProjectViewProps {
   project: Project
   projectRef?: RefObject<HTMLDivElement>
+  responsiveImages?: Record<string, ImageProps>
   noJs?: boolean
   onReady?: () => void
   onHeightChange?: (height: number | null) => void
@@ -19,12 +20,13 @@ interface ProjectViewProps {
 
 const nullFunc = () => {}
 
-const smallestImage = (project: Project): string =>
-  Object.values(project.image.metadata)[0][0].url
+const smallestImage = (image: ImageProps): string =>
+  Object.values(image.metadata)[0][0].url
 
 const ProjectView = ({
   project,
   noJs,
+  responsiveImages = {},
   onReady = nullFunc,
   onHeightChange = nullFunc,
   projectRef,
@@ -35,6 +37,7 @@ const ProjectView = ({
   const body = projectRef || useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
   const image = useRef<HTMLImageElement>(new Image())
+  const responsive = responsiveImages[project.image]
 
   const hasColumns = project.type !== 'youtube' && project.type !== 'vimeo'
   const analytics = {
@@ -51,7 +54,7 @@ const ProjectView = ({
       onReady()
       onHeightChange(content.current.scrollHeight)
     })
-    img.src = smallestImage(project)
+    img.src = responsive ? smallestImage(responsive) : project.image
 
     let timeout: number
     const onResize = throttle(
@@ -108,10 +111,18 @@ const ProjectView = ({
             target="_blank"
             {...analytics}
           >
-            <ResponsiveImage
-              {...project.image}
-              className="duration-300 group-hover:blur-sm"
-            />
+            {responsive ? (
+              <ResponsiveImage
+                {...responsive}
+                className="duration-300 group-hover:blur-sm"
+              />
+            ) : (
+              <img
+                className="group-hover:blur-sm"
+                src={project.image}
+                alt={project.title}
+              />
+            )}
             <div className="absolute inset-0 flex flex-col bg-neutral-800/75 p-md text-center text-white opacity-0 duration-300 group-hover:opacity-100">
               <span className="m-auto">Visit Site</span>
             </div>

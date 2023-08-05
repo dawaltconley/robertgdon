@@ -29,23 +29,6 @@ const images: ImageData[] = [
   },
 ]
 
-const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
-  await Promise.all(
-    images.map<Promise<[string, ImageMetadata]>>(
-      async ({ path: image, sizes, alt = '' }) => {
-        const imagePath = import.meta.env.PROD
-          ? image
-          : path.resolve('./public', `.${image}`)
-        const metadata = await imageConfig.metadataFromSizes(imagePath, {
-          sizes,
-          alt,
-        })
-        return [image, metadata]
-      },
-    ),
-  ),
-)
-
 const validTypes: Readonly<Project['type'][]> = [
   'bandcamp',
   'soundcloud',
@@ -63,40 +46,56 @@ function isNotEmpty<T>(v: T | null | undefined): v is T {
 const categories: Category[] = [],
   projects: Record<string, Project> = {}
 
-const processing =
-  projectSort
-    ?.filter(isNotEmpty)
-    .map(({ category, projects: sortedProjects }) => {
-      const cat: Category = {
-        name: category,
-        projects: [],
-      }
-      const processing = sortedProjects.map(async ({ project: p }, j) => {
-        const slug = p._sys.filename
-        const imagePath = import.meta.env.PROD
-          ? p.image
-          : path.resolve('./public', `.${p.image}`)
-        cat.projects.push(slug)
-        projects[slug] = {
-          ...pick(p, ['title', 'description', 'link']),
-          slug,
-          index: j,
-          type: isProjectType(p.media) ? p.media : 'page',
-          tralbumId: p.tralbum_id || undefined,
-          image: await imageConfig.metadataFromSizes(imagePath, {
-            sizes:
-              p.media === 'page' // projects with this media type display a larger image
-                ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
-                : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
-            alt: p.title,
-          }),
-        }
-      })
-      categories.push(cat)
-      return Promise.all(processing)
-    }) || []
+projectSort
+  ?.filter(isNotEmpty)
+  .forEach(({ category, projects: sortedProjects }) => {
+    const cat: Category = {
+      name: category,
+      projects: [],
+    }
 
-await Promise.all(processing)
+    sortedProjects.forEach(({ project: p }, j) => {
+      const slug = p._sys.filename
+
+      cat.projects.push(slug)
+
+      projects[slug] = {
+        ...pick(p, ['title', 'description', 'image', 'link']),
+        slug,
+        index: j,
+        type: isProjectType(p.media) ? p.media : 'page',
+        tralbumId: p.tralbum_id || undefined,
+      }
+
+      images.push({
+        path: p.image,
+        sizes:
+          p.media === 'page' // projects with this media type display a larger image
+            ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
+            : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
+        alt: p.title,
+      })
+    })
+
+    categories.push(cat)
+  }) || []
+
+const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
+  await Promise.all(
+    images.map<Promise<[string, ImageMetadata]>>(
+      async ({ path: image, sizes, alt = '' }) => {
+        const imagePath = import.meta.env.PROD
+          ? image
+          : path.resolve('./public', `.${image}`)
+        const metadata = await imageConfig.metadataFromSizes(imagePath, {
+          sizes,
+          alt,
+        })
+        return [image, metadata]
+      },
+    ),
+  ),
+)
 ---
 
 <Layout
@@ -134,11 +133,20 @@ await Promise.all(processing)
 
     {
       projects && (
-        <ProjectApp client:load projects={projects} categories={categories} />
+        <ProjectApp
+          client:load
+          projects={projects}
+          categories={categories}
+          responsiveImages={imageMetadata}
+        />
       )
     }
 
-    <Bio client:tina site={site} responsiveImages={imageMetadata} />
+    <Bio
+      client:tina
+      site={site}
+      responsiveImages={pick(imageMetadata, [site.data.site.about.image])}
+    />
 
     <div id="cta" class="text-white bg-neutral-900 cta-img">
       <div
