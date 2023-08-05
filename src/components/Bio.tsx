@@ -1,5 +1,5 @@
 import type { SiteQuery } from '@tina/__generated__/types'
-import { useTina } from 'tinacms/dist/react'
+import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import Image, { ImageProps } from './Image'
 import '../styles/_bio.scss'
@@ -10,13 +10,20 @@ interface BioProps {
 }
 
 const Bio = ({ site, responsiveImages = {} }: BioProps) => {
-  const { title, bio, image } = useTina<SiteQuery>(site).data.site.about
+  const { data } = useTina<SiteQuery>(site)
+  const { title, bio, image } = data.site.about
   const responsive = responsiveImages[image]
 
   return (
     <div id="bio" className="bio container mx-auto my-lg flex">
-      <div className="mb-md max-w-prose">
-        <h2 className="border-b-2 border-b-neutral-800 pb-xs font-caps text-[2em] uppercase">
+      <div
+        className="mb-md max-w-prose"
+        data-tina-field={tinaField(data.site.about, 'bio')}
+      >
+        <h2
+          className="border-b-2 border-b-neutral-800 pb-xs font-caps text-[2em] uppercase"
+          data-tina-field={tinaField(data.site.about, 'title')}
+        >
           {title}
         </h2>
 
@@ -30,9 +37,13 @@ const Bio = ({ site, responsiveImages = {} }: BioProps) => {
           imgProps={{
             className: 'laptop:absolute inset-0 w-full h-full object-fit-rob',
           }}
+          data-tina-field={tinaField(data.site.about, 'image')}
         />
       ) : (
-        <div className="headshot-container relative ml-md">
+        <div
+          className="headshot-container relative ml-md"
+          data-tina-field={tinaField(data.site.about, 'image')}
+        >
           <img
             src={image}
             className="object-fit-rob inset-0 h-full w-full laptop:absolute"
