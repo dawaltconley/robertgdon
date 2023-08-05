@@ -2,7 +2,7 @@ import type { SiteQuery } from '@tina/__generated__/types'
 import type { ImageProps } from './Image'
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
-import { useState, useRef, useMemo, memo } from 'react'
+import { useState, useEffect, useRef, useMemo, memo } from 'react'
 import { useTina } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
@@ -105,6 +105,8 @@ const ProjectApp = ({
 
   const handlePickProject = (slug: string | null): void => {
     if (animating.current > 0) return
+    history.replaceState({ project: slug }, '', `#${slug || ''}`)
+
     const selected = slug ? projects[slug] : undefined
     setLast(selected && current)
     setCurrent(selected)
@@ -120,6 +122,17 @@ const ProjectApp = ({
   const handleHeightChange = (h: number | null): void => {
     setViewHeight(h)
   }
+
+  const updateProjectFromHash = (): void =>
+    handlePickProject(location.hash.slice(1))
+
+  useEffect(() => {
+    updateProjectFromHash()
+    window.addEventListener('hashchange', updateProjectFromHash)
+    return () => {
+      window.removeEventListener('hashchange', updateProjectFromHash)
+    }
+  }, [])
 
   return (
     <>
