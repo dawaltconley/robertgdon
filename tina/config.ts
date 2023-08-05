@@ -188,9 +188,31 @@ export default defineConfig({
             ],
           },
           {
-            type: 'rich-text',
-            label: 'Bio',
-            name: 'bio',
+            type: 'object',
+            label: 'About',
+            name: 'about',
+            required: true,
+            fields: [
+              {
+                type: 'string',
+                label: 'Section Title',
+                name: 'title',
+                isTitle: true,
+                required: true,
+              },
+              {
+                type: 'rich-text',
+                label: 'Bio',
+                name: 'bio',
+                required: true,
+              },
+              {
+                type: 'image',
+                label: 'Headshot',
+                name: 'image',
+                required: true,
+              },
+            ],
           },
           {
             type: 'object',

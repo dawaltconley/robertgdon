@@ -1,0 +1,20 @@
+.headshot-container {
+  flex: 1 0.4 70%;
+}
+
+@media screen and (max-width: theme('screens.laptop')) {
+  .bio {
+    display: block;
+  }
+
+  .headshot-container {
+    margin-left: 0;
+  }
+}
+
+.object-fit-rob {
+  $pos: 70% 0%;
+  object-fit: cover;
+  object-position: $pos;
+  font-family: 'object-fit: cover; object-position: #{$pos};';
+}

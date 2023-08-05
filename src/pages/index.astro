@@ -1,18 +1,50 @@
 ---
 import type { Category, Project } from '../components/ProjectApp'
+import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import path from 'node:path'
 import Layout from '../layouts/Base.astro'
 import ProjectApp from '../components/ProjectApp'
-import Image from '../components/Image.astro'
+import Bio from '../components/Bio'
 import Footer from '../components/Footer.astro'
-import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import imageConfig from '../lib/node/image-config'
 
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
 
-const { data } = await client.queries.site({ relativePath: 'site.yml' })
-const { title, description, bio, projects: projectSort } = data.site
+const site = await client.queries.site({ relativePath: 'site.yml' })
+const { title, description, projects: projectSort } = site.data.site
+
+interface ImageData {
+  path: string
+  sizes?: string
+  alt?: string
+}
+
+const images: ImageData[] = [
+  {
+    path: site.data.site.about.image,
+    sizes:
+      '(min-width: 2000px) 25vw, (min-width: 1000px) 432px, (min-width: 800px) 334px, (min-width: 600px) 540px, 100vw',
+    alt: 'headshot photo',
+  },
+]
+
+const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
+  await Promise.all(
+    images.map<Promise<[string, ImageMetadata]>>(
+      async ({ path: image, sizes, alt = '' }) => {
+        const imagePath = import.meta.env.PROD
+          ? image
+          : path.resolve('./public', `.${image}`)
+        const metadata = await imageConfig.metadataFromSizes(imagePath, {
+          sizes,
+          alt,
+        })
+        return [image, metadata]
+      },
+    ),
+  ),
+)
 
 const validTypes: Readonly<Project['type'][]> = [
   'bandcamp',
@@ -106,29 +138,7 @@ await Promise.all(processing)
       )
     }
 
-    <div id="bio" class="container mx-auto my-lg">
-      <div class="bio flex flex-row">
-        <div class="max-w-prose mb-md">
-          <h2
-            class="font-caps text-[2em] uppercase pb-xs border-b-2 border-b-neutral-800"
-          >
-            About Me
-          </h2>
-
-          <TinaMarkdown content={bio} />
-        </div>
-
-        <Image
-          src="./public/media/headshot.jpg"
-          class="headshot-container relative ml-md"
-          alt="headshot photo"
-          sizes="(min-width: 2000px) 25vw, (min-width: 1000px) 432px, (min-width: 800px) 334px, (min-width: 600px) 540px, 100vw"
-          imgProps={{
-            class: 'laptop:absolute inset-0 w-full h-full object-fit-rob',
-          }}
-        />
-      </div>
-    </div>
+    <Bio client:tina site={site} responsiveImages={imageMetadata} />
 
     <div id="cta" class="text-white bg-neutral-900 cta-img">
       <div
@@ -229,27 +239,6 @@ await Promise.all(processing)
 
   .t-project-view {
     transition: $trans-project ease-out;
-  }
-
-  .headshot-container {
-    flex: 1 0.4 70%;
-  }
-
-  @media screen and (max-width: theme('screens.laptop')) {
-    .bio {
-      display: block;
-    }
-
-    .headshot-container {
-      margin-left: 0;
-    }
-  }
-
-  :global(.object-fit-rob) {
-    $pos: 70% 0%;
-    object-fit: cover;
-    object-position: $pos;
-    font-family: 'object-fit: cover; object-position: #{$pos};';
   }
 
   $brand-color: theme('colors.brand');
