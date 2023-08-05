@@ -1,9 +1,9 @@
 import type { ComponentPropsWithoutRef, Ref } from 'react'
-import type { Metadata, MetadataEntry } from '11ty__eleventy-img'
+import type { ImageMetadata } from '@dawaltconley/responsive-images'
 
-export interface ImageProps extends ComponentPropsWithoutRef<'picture'> {
-  metadata: Metadata
-  alt: string
+export interface ImageProps
+  extends ImageMetadata,
+    ComponentPropsWithoutRef<'picture'> {
   sizes?: string
   pictureRef?: Ref<HTMLPictureElement>
   imgRef?: Ref<HTMLImageElement>
@@ -20,8 +20,8 @@ export default function Image({
   ...picture
 }: ImageProps) {
   const metaValues = Object.values(metadata)
-  const smallest: MetadataEntry = metaValues[0][0]
-  const biggest: MetadataEntry = metaValues[0][metaValues[0].length - 1]
+  const smallest = metaValues[0][0]
+  const biggest = metaValues[0][metaValues[0].length - 1]
 
   return (
     <picture ref={pictureRef} {...picture}>
