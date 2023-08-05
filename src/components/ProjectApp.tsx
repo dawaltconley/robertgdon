@@ -40,11 +40,16 @@ const getCategories = ({ site }: SiteQuery): Category[] =>
           index: i,
           type: isProjectType(p.media) ? p.media : 'page',
           tralbumId: p.tralbum_id || undefined,
+          __raw: p,
         })
       })
 
       return cat
     }) || []
+
+type ProjectData = NonNullable<
+  NonNullable<SiteQuery['site']['projects']>[number]
+>['projects'][number]['project']
 
 export interface Project {
   slug: string
@@ -56,6 +61,7 @@ export interface Project {
   link: string | URL
   type: ProjectType
   tralbumId?: string
+  __raw: ProjectData
 }
 
 export interface Category {

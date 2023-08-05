@@ -5,6 +5,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '../lib/browser/drawToCanvas'
 import classNames from 'classnames'
 import { useEffect, useRef, RefObject } from 'react'
+import { tinaField } from 'tinacms/dist/react'
 import throttle from 'lodash/throttle'
 
 interface ProjectViewProps {
@@ -140,9 +141,16 @@ const ProjectView = ({
         )}
 
         <div>
-          <h3 className="font-caps text-[2em] uppercase">{project.title}</h3>
+          <h3
+            className="font-caps text-[2em] uppercase"
+            data-tina-field={tinaField(project.__raw, 'title')}
+          >
+            {project.title}
+          </h3>
 
-          <TinaMarkdown content={project.description} />
+          <div data-tina-field={tinaField(project.__raw, 'description')}>
+            <TinaMarkdown content={project.description} />
+          </div>
         </div>
       </div>
     </div>
