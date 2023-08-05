@@ -3,7 +3,7 @@ import type { ImageProps } from './Image'
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useEffect, useRef, useMemo, memo } from 'react'
-import { useTina } from 'tinacms/dist/react'
+import { useTina, tinaField } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
@@ -219,8 +219,11 @@ const ProjectApp = ({
       </noscript>
 
       <div id="projects" className="container mx-auto my-lg mb-md">
-        <h2 className="mb-0 border-b-2 border-neutral-800 pb-xs font-caps text-[2em] uppercase">
-          Projects
+        <h2
+          className="mb-0 border-b-2 border-neutral-800 pb-xs font-caps text-[2em] uppercase"
+          data-tina-field={tinaField(data.site, 'project_heading')}
+        >
+          {data.site.project_heading}
         </h2>
 
         <div className="mb-md flex justify-center">

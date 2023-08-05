@@ -145,11 +145,19 @@ export default defineConfig({
             type: 'string',
             label: 'Site Title',
             name: 'title',
+            required: true,
           },
           {
             type: 'string',
             label: 'Site Description',
             name: 'description',
+            required: true,
+          },
+          {
+            type: 'string',
+            label: 'Project Heading',
+            name: 'project_heading',
+            required: true,
           },
           {
             type: 'object',
@@ -219,7 +227,7 @@ export default defineConfig({
             fields: [
               {
                 type: 'string',
-                label: 'Section Title',
+                label: 'Section Heading',
                 name: 'title',
                 isTitle: true,
                 required: true,
