@@ -2,7 +2,7 @@ import type { SiteQuery } from '@tina/__generated__/types'
 import type { ImageProps } from './Image'
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
-import { useState, useRef, memo } from 'react'
+import { useState, useRef, useMemo, memo } from 'react'
 import { useTina } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
@@ -75,15 +75,21 @@ const ProjectApp = ({
   transition = 1000,
 }: ProjectAppProps) => {
   const { data } = useTina<SiteQuery>(site)
-  const categories = getCategories(data)
-  const projectsFlat = categories.map((c) => c.projects).flat()
-
-  const projects = projectsFlat.reduce<Record<string, Project>>(
-    (dict, p) => ({
-      ...dict,
-      [p.slug]: p,
-    }),
-    {},
+  const categories = useMemo(() => getCategories(data), [data])
+  const projectsFlat = useMemo(
+    () => categories.map((c) => c.projects).flat(),
+    [categories],
+  )
+  const projects = useMemo(
+    () =>
+      projectsFlat.reduce<Record<string, Project>>(
+        (dict, p) => ({
+          ...dict,
+          [p.slug]: p,
+        }),
+        {},
+      ),
+    [projectsFlat],
   )
 
   const view = useRef<HTMLDivElement>(null)
