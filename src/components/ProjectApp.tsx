@@ -89,11 +89,13 @@ const ProjectApp = ({
   const view = useRef<HTMLDivElement>(null)
   const animating = useRef(0)
 
-  const [category, setCategory] = useState(categories[0])
+  const [catIndex, setCatIndex] = useState(0)
   const [current, setCurrent] = useState<Project>()
   const [last, setLast] = useState<Project>()
   const [isReady, setIsReady] = useState(false)
   const [viewHeight, setViewHeight] = useState<number | null>(0)
+
+  const category = categories[catIndex]
 
   const handlePickProject = (slug: string | null): void => {
     if (animating.current > 0) return
@@ -197,7 +199,7 @@ const ProjectApp = ({
         </h2>
 
         <div className="mb-md flex justify-center">
-          {categories.map((c) => {
+          {categories.map((c, i) => {
             const isActive = c.name === category.name
             return (
               <button
@@ -208,7 +210,7 @@ const ProjectApp = ({
                     ? 'bg-neutral-800 text-neutral-100'
                     : 'hover:decoration-b-2 bg-transparent',
                 )}
-                onClick={() => setCategory(c)}
+                onClick={() => setCatIndex(i)}
               >
                 <span
                   className={classNames(
@@ -226,7 +228,7 @@ const ProjectApp = ({
         </div>
 
         <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
-          {category.projects.map((project) => {
+          {categories[catIndex].projects.map((project) => {
             const image = responsiveImages[project.image] ?? project.image
             return (
               <ProjectButton
