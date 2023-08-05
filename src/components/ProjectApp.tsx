@@ -204,6 +204,7 @@ const ProjectApp = ({
             const isActive = c.name === category.name
             return (
               <button
+                key={c.name}
                 className={classNames(
                   'group px-3 pb-3 pt-2 font-caps text-2xl leading-none duration-300',
                   isActive
