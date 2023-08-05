@@ -1,4 +1,6 @@
+import type { Site } from '@tina/__generated__/types'
 import { defineConfig } from 'tinacms'
+import { isNotEmpty } from '../src/lib/utils'
 
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
 
@@ -186,6 +188,24 @@ export default defineConfig({
                     name: 'project',
                     required: true,
                     collections: ['project'],
+                    ui: {
+                      validate: (_value: string, data: Site) => {
+                        const allProjects = data.projects
+                          ?.filter(isNotEmpty)
+                          .map(({ projects, category }) =>
+                            projects.map((p) => category + '__' + p.project),
+                          )
+                          .flat()
+                        if (
+                          allProjects &&
+                          allProjects.some(
+                            (p, i, projects) => projects.indexOf(p) !== i,
+                          )
+                        ) {
+                          return 'This project has already been added to this category. All projects in a category must be unique.'
+                        }
+                      },
+                    },
                   },
                 ],
               },
