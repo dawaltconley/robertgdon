@@ -1,6 +1,6 @@
 import type { SiteQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
-import '../styles/_splash.scss'
+import '@styles/_splash.scss'
 
 interface SplashProps {
   site: Parameters<typeof useTina<SiteQuery>>[0]

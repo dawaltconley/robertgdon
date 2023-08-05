@@ -1,13 +1,13 @@
 import type { SiteQuery } from '@tina/__generated__/types'
 import type { ImageProps } from './Image'
-import ProjectView from '../components/ProjectView'
+import ProjectView from './ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useEffect, useRef, useMemo, memo } from 'react'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
-import { isNotEmpty } from '../lib/utils'
+import { isNotEmpty } from '@lib/utils'
 
 const ProjectType = [
   'bandcamp',

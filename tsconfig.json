@@ -4,7 +4,14 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["*"],
-      "@tina/*": ["tina/*"]
+      "@tina/*": ["tina/*"],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@browser/*": ["src/lib/browser/*"],
+      "@build/*": ["src/lib/node/*"],
+      "@hooks/*": ["src/lib/hooks/*"],
+      "@styles/*": ["src/styles/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

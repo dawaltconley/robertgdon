@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
 import type { FromSizesOptions } from '@dawaltconley/responsive-images'
-import images from '../lib/node/image-config'
+import images from '@build/image-config'
 
 export interface Props extends HTMLAttributes<'picture'>, FromSizesOptions {
   src: string
