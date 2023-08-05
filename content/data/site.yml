@@ -13,7 +13,6 @@ bio: |
   possible, you can find him walking through Prospect Park or perfecting
   recipes in the kitchen. Get in touch below!
 projects:
-  - category: Audiobook
   - category: Sound
     projects:
       - project: content/projects/2023-07-25-switch.md
