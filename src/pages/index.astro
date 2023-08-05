@@ -6,6 +6,7 @@ import ProjectApp from '../components/ProjectApp'
 import Bio from '../components/Bio'
 import Footer from '../components/Footer.astro'
 import imageConfig from '../lib/node/image-config'
+import { isNotEmpty } from '../lib/utils'
 
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
@@ -40,10 +41,6 @@ const images: ImageData[] = [
       alt: p.title,
     })) || []),
 ]
-
-function isNotEmpty<T>(v: T | null | undefined): v is T {
-  return v !== null && v !== undefined
-}
 
 const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
   await Promise.all(

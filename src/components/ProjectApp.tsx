@@ -7,10 +7,7 @@ import { useTina } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
-
-function isNotEmpty<T>(v: T | null | undefined): v is T {
-  return v !== null && v !== undefined
-}
+import { isNotEmpty } from '../lib/utils'
 
 const ProjectType = [
   'bandcamp',
