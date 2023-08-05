@@ -2,6 +2,7 @@
 import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import path from 'node:path'
 import Layout from '../layouts/Base.astro'
+import Splash from '../components/Splash'
 import ProjectApp from '../components/ProjectApp'
 import Bio from '../components/Bio'
 import Footer from '../components/Footer.astro'
@@ -72,15 +73,7 @@ const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
       data-force-fullscreen
     >
       <div class="container flex flex-col items-center h-full mx-auto p-md">
-        <a
-          href="/"
-          class="m-auto text-center full-shadow radial-shadow no-select"
-        >
-          <h1 class="title m-0 border-b-2 border-white">
-            {title}
-          </h1>
-          <p class="subtitle font-caps uppercase">{description}</p>
-        </a>
+        <Splash client:tina site={site} />
 
         <a
           href="#projects"
@@ -131,7 +124,6 @@ const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
 
 <style lang="scss">
   @use 'sass:color';
-  @use 'sass:math';
   @use '@dawaltconley/responsive-images';
 
   :global(.container) {
@@ -166,33 +158,6 @@ const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
       $src: './public/media/backgrounds/mixing-board-straight.jpg',
       $prepend-backgrounds: linear-gradient(rgba(black, 0.7), rgba(black, 0.5))
     );
-  }
-
-  .title {
-    @apply font-sans;
-    font-weight: 200;
-    letter-spacing: 2px;
-    font-size: 88px;
-  }
-
-  .subtitle {
-    font-size: 42px;
-    font-weight: 400;
-  }
-
-  @media screen and (max-width: theme('screens.mobile')) {
-    $title-font-size: 14.45vmin;
-
-    .title {
-      margin-bottom: 0.8vmin;
-      padding-bottom: 1vmin;
-      font-size: 14.45vmin;
-      border-bottom-width: 0.4vmin;
-    }
-
-    .subtitle {
-      font-size: math.div($title-font-size * 42, 88);
-    }
   }
 
   .scroll-arrow {

@@ -1,0 +1,28 @@
+@use 'sass:math';
+
+.title {
+  @apply font-sans;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 88px;
+}
+
+.subtitle {
+  font-size: 42px;
+  font-weight: 400;
+}
+
+@media screen and (max-width: theme('screens.mobile')) {
+  $title-font-size: 14.45vmin;
+
+  .title {
+    margin-bottom: 0.8vmin;
+    padding-bottom: 1vmin;
+    font-size: 14.45vmin;
+    border-bottom-width: 0.4vmin;
+  }
+
+  .subtitle {
+    font-size: math.div($title-font-size * 42, 88);
+  }
+}
