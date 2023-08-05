@@ -49,14 +49,20 @@ const ProjectView = ({
 
   useEffect(() => {
     const img = image.current
-    img.addEventListener('load', () => {
+    const drawBackground = () => {
       if (!canvas.current || !body.current || !content.current) return onReady()
       drawToCanvas(canvas.current, body.current, content.current, image.current)
       onReady()
       onHeightChange(content.current.scrollHeight)
-    })
+    }
+    img.addEventListener('load', drawBackground)
     img.src = responsive ? smallestImage(responsive) : project.image
+    return () => {
+      img.removeEventListener('load', drawBackground)
+    }
+  }, [project.image, onHeightChange])
 
+  useEffect(() => {
     let timeout: number
     const onResize = throttle(
       () => {
