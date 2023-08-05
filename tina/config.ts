@@ -42,7 +42,6 @@ export default defineConfig({
             type: 'datetime',
             label: 'Date',
             name: 'date',
-            required: true,
           },
           {
             type: 'string',
@@ -107,11 +106,6 @@ export default defineConfig({
               description:
                 'For best results, images should be at least 960px wide and cropped to a square. If uncropped, their aspect ratio should be no wider than 16/9.',
             },
-          },
-          {
-            type: 'boolean',
-            label: 'Published',
-            name: 'published',
           },
           {
             type: 'rich-text',
