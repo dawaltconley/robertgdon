@@ -1,9 +1,53 @@
+import type { SiteQuery } from '@tina/__generated__/types'
 import type { ImageProps } from './Image'
 import ProjectView from '../components/ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useRef, memo } from 'react'
+import { useTina } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
+import pick from 'lodash/pick'
+
+function isNotEmpty<T>(v: T | null | undefined): v is T {
+  return v !== null && v !== undefined
+}
+
+const ProjectType = [
+  'bandcamp',
+  'soundcloud',
+  'youtube',
+  'vimeo',
+  'page',
+] as const
+
+type ProjectType = (typeof ProjectType)[number]
+
+const isProjectType = (s: string): s is ProjectType =>
+  ProjectType.includes(s as ProjectType)
+
+const getCategories = ({ site }: SiteQuery): Category[] =>
+  site.projects
+    ?.filter(isNotEmpty)
+    .map(({ category, projects: sortedProjects }) => {
+      const cat: Category = {
+        name: category,
+        projects: [],
+      }
+
+      sortedProjects.forEach(({ project: p }, i) => {
+        const slug = p._sys.filename
+
+        cat.projects.push({
+          ...pick(p, ['title', 'description', 'image', 'link']),
+          slug,
+          index: i,
+          type: isProjectType(p.media) ? p.media : 'page',
+          tralbumId: p.tralbum_id || undefined,
+        })
+      })
+
+      return cat
+    }) || []
 
 export interface Project {
   slug: string
@@ -13,28 +57,38 @@ export interface Project {
   description: any
   image: string
   link: string | URL
-  type: 'bandcamp' | 'soundcloud' | 'youtube' | 'vimeo' | 'page'
+  type: ProjectType
   tralbumId?: string
 }
 
 export interface Category {
   name: string
-  projects: string[]
+  projects: Project[]
 }
 
 interface ProjectAppProps {
-  projects: Record<string, Project>
-  categories: Category[]
+  site: Parameters<typeof useTina<SiteQuery>>[0]
   responsiveImages?: Record<string, ImageProps>
   transition?: number
 }
 
 const ProjectApp = ({
-  projects,
-  categories,
+  site,
   responsiveImages = {},
   transition = 1000,
 }: ProjectAppProps) => {
+  const { data } = useTina<SiteQuery>(site)
+  const categories = getCategories(data)
+  const projectsFlat = categories.map((c) => c.projects).flat()
+
+  const projects = projectsFlat.reduce<Record<string, Project>>(
+    (dict, p) => ({
+      ...dict,
+      [p.slug]: p,
+    }),
+    {},
+  )
+
   const view = useRef<HTMLDivElement>(null)
   const animating = useRef(0)
 
@@ -61,11 +115,6 @@ const ProjectApp = ({
   const handleHeightChange = (h: number | null): void => {
     setViewHeight(h)
   }
-
-  const projectsFlat = categories
-    .map((c) => c.projects)
-    .flat()
-    .map((p) => projects[p])
 
   return (
     <>
@@ -179,14 +228,13 @@ const ProjectApp = ({
         </div>
 
         <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
-          {category.projects.map((id) => {
-            const project = projects[id]
+          {category.projects.map((project) => {
             const image = responsiveImages[project.image] ?? project.image
             return (
               <ProjectButton
-                key={id}
+                key={project.slug}
                 handleClick={handlePickProject}
-                isActive={id === current?.slug}
+                isActive={project.slug === current?.slug}
                 {...project}
                 image={image}
               />

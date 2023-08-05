@@ -1,5 +1,4 @@
 ---
-import type { Category, Project } from '../components/ProjectApp'
 import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import path from 'node:path'
 import Layout from '../layouts/Base.astro'
@@ -12,7 +11,7 @@ import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
 
 const site = await client.queries.site({ relativePath: 'site.yml' })
-const { title, description, projects: projectSort } = site.data.site
+const { title, description, about, projects: projectSort } = site.data.site
 
 interface ImageData {
   path: string
@@ -22,63 +21,29 @@ interface ImageData {
 
 const images: ImageData[] = [
   {
-    path: site.data.site.about.image,
+    path: about.image,
     sizes:
       '(min-width: 2000px) 25vw, (min-width: 1000px) 432px, (min-width: 800px) 334px, (min-width: 600px) 540px, 100vw',
     alt: 'headshot photo',
   },
-]
 
-const validTypes: Readonly<Project['type'][]> = [
-  'bandcamp',
-  'soundcloud',
-  'youtube',
-  'vimeo',
-  'page',
-] as const
-const isProjectType = (s: string): s is Project['type'] =>
-  validTypes.includes(s as Project['type'])
+  ...(projectSort
+    ?.filter(isNotEmpty)
+    .map((c) => c.projects)
+    .flat()
+    .map<ImageData>(({ project: p }) => ({
+      path: p.image,
+      sizes:
+        p.media === 'page' // projects with this media type display a larger image
+          ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
+          : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
+      alt: p.title,
+    })) || []),
+]
 
 function isNotEmpty<T>(v: T | null | undefined): v is T {
   return v !== null && v !== undefined
 }
-
-const categories: Category[] = [],
-  projects: Record<string, Project> = {}
-
-projectSort
-  ?.filter(isNotEmpty)
-  .forEach(({ category, projects: sortedProjects }) => {
-    const cat: Category = {
-      name: category,
-      projects: [],
-    }
-
-    sortedProjects.forEach(({ project: p }, j) => {
-      const slug = p._sys.filename
-
-      cat.projects.push(slug)
-
-      projects[slug] = {
-        ...pick(p, ['title', 'description', 'image', 'link']),
-        slug,
-        index: j,
-        type: isProjectType(p.media) ? p.media : 'page',
-        tralbumId: p.tralbum_id || undefined,
-      }
-
-      images.push({
-        path: p.image,
-        sizes:
-          p.media === 'page' // projects with this media type display a larger image
-            ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
-            : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
-        alt: p.title,
-      })
-    })
-
-    categories.push(cat)
-  }) || []
 
 const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
   await Promise.all(
@@ -132,20 +97,15 @@ const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
     </div>
 
     {
-      projects && (
-        <ProjectApp
-          client:load
-          projects={projects}
-          categories={categories}
-          responsiveImages={imageMetadata}
-        />
+      site && (
+        <ProjectApp client:load site={site} responsiveImages={imageMetadata} />
       )
     }
 
     <Bio
       client:tina
       site={site}
-      responsiveImages={pick(imageMetadata, [site.data.site.about.image])}
+      responsiveImages={pick(imageMetadata, [about.image])}
     />
 
     <div id="cta" class="text-white bg-neutral-900 cta-img">
