@@ -15,7 +15,7 @@ const Bio = ({ site, responsiveImages = {} }: BioProps) => {
   const responsive = responsiveImages[image]
 
   return (
-    <div id="bio" className="bio container mx-auto my-lg flex">
+    <div id="bio" className="container mx-auto my-lg laptop:flex">
       <div
         className="mb-md max-w-prose"
         data-tina-field={tinaField(data.site.about, 'bio')}
