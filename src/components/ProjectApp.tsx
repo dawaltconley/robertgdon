@@ -118,7 +118,7 @@ const ProjectApp = ({
     setCurrent(selected)
     setIsReady(false) // should probably use setCurrent or setNext or something instead
     if (!selected) close()
-    if (!view.current) return
+    if (!slug || !view.current) return
     const { top } = view.current.getBoundingClientRect()
     window.scrollTo(0, top + window.scrollY)
   }
@@ -129,8 +129,12 @@ const ProjectApp = ({
     setViewHeight(h)
   }
 
-  const updateProjectFromHash = (): void =>
-    handlePickProject(location.hash.slice(1))
+  const updateProjectFromHash = (): void => {
+    const slug = location.hash.slice(1)
+    if (slug) {
+      handlePickProject(slug)
+    }
+  }
 
   useEffect(() => {
     updateProjectFromHash()
