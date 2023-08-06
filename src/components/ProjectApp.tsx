@@ -25,11 +25,15 @@ const isProjectType = (s: string): s is ProjectType =>
 const getCategories = ({ site }: SiteQuery): Category[] =>
   site.projects
     ?.filter(isNotEmpty)
-    .map(({ category, projects: sortedProjects }) => {
+    .map(({ category, projects: sortedProjects }, i, categories) => {
       const cat: Category = {
         name: category,
         projects: [],
       }
+
+      const prevProjects = categories
+        .filter((_c, j) => j < i)
+        .reduce((sum, { projects }) => sum + projects.length, 0)
 
       sortedProjects.forEach(({ project: p }, i) => {
         const slug = p._sys.filename
@@ -37,7 +41,7 @@ const getCategories = ({ site }: SiteQuery): Category[] =>
         cat.projects.push({
           ...pick(p, ['title', 'description', 'image', 'link']),
           slug,
-          index: i,
+          index: prevProjects + i,
           type: isProjectType(p.media) ? p.media : 'page',
           tralbumId: p.tralbum_id || undefined,
           __raw: p,
