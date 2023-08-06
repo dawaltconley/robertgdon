@@ -206,3 +206,20 @@ const imageMetadata: Record<string, ImageMetadata> = Object.fromEntries(
     }
   }
 </style>
+
+<script>
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const scrolledPast = !e.isIntersecting && e.boundingClientRect.y < 0
+      if (scrolledPast) e.target.remove()
+    })
+  })
+
+  const elementsToHideOnScroll = document.querySelectorAll<HTMLElement>(
+    '[data-hide-on-scroll]',
+  )
+
+  for (let e of elementsToHideOnScroll) {
+    scrollObserver.observe(e)
+  }
+</script>
