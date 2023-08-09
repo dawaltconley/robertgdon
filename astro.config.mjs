@@ -10,10 +10,13 @@ const tailwindFunctions = mkTailwindFunctions(
   path.resolve('./tailwind.config.cjs'),
 )
 
+/**
+ * @returns {import('astro').AstroIntegration}
+ */
 const tina = () => ({
   name: 'tina-cms',
   hooks: {
-    'astro:config:setup': ({ addClientDirective, opts }) => {
+    'astro:config:setup': ({ addClientDirective }) => {
       addClientDirective({
         name: 'tina',
         entrypoint: './client-directives/tina.mjs',
