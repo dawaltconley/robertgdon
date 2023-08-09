@@ -1,9 +1,14 @@
 /**
  * @type {import('astro').ClientDirective}
  */
-export default (load, opts, el) => {
-  const isEditor = window.top.location.pathname.startsWith('/admin')
-  if (isEditor) {
-    load().then(hydrate => hydrate())
+export default (load) => {
+  try {
+    const isEditor =
+      window.frameElement && window.frameElement.id === 'tina-iframe'
+    if (isEditor) {
+      load().then((hydrate) => hydrate())
+    }
+  } catch (e) {
+    console.error(e)
   }
 }
