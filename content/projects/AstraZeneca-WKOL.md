@@ -1,5 +1,5 @@
 ---
-title: AstraZeneca WKOL
+title: AstraZeneca
 media: page
 link: 'https://www.astrazeneca.com/'
 image: /media/AstraZeneca.png
