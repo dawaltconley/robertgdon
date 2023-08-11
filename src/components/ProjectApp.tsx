@@ -22,38 +22,39 @@ type ProjectType = (typeof ProjectType)[number]
 const isProjectType = (s: string): s is ProjectType =>
   ProjectType.includes(s as ProjectType)
 
-const getCategories = ({ site }: SiteQuery): Category[] =>
-  site.projects
-    ?.filter(isNotEmpty)
-    .map(({ category, projects: sortedProjects }, i, categories) => {
-      const cat: Category = {
+const getCategories = ({ site }: SiteQuery): Category[] => {
+  let projectIndex = 0
+  return (
+    site.projects
+      ?.filter(isNotEmpty)
+      .map<Category>(({ category, projects }) => ({
         name: category,
-        projects: [],
-      }
+        projects:
+          projects
+            ?.map((p) => p?.project)
+            .filter(isNotEmpty)
+            .map((p) => {
+              const slug = p._sys.filename
 
-      const prevProjects = categories
-        .filter((_c, j) => j < i)
-        .reduce((sum, { projects }) => sum + projects.length, 0)
-
-      sortedProjects.forEach(({ project: p }, i) => {
-        const slug = p._sys.filename
-
-        cat.projects.push({
-          ...pick(p, ['title', 'description', 'image', 'link']),
-          slug,
-          index: prevProjects + i,
-          type: isProjectType(p.media) ? p.media : 'page',
-          tralbumId: p.tralbum_id || undefined,
-          __raw: p,
-        })
-      })
-
-      return cat
-    }) || []
+              return {
+                ...pick(p, ['title', 'description', 'image', 'link']),
+                slug,
+                index: projectIndex++, // map side effect: increment project index
+                type: isProjectType(p.media) ? p.media : 'page',
+                tralbumId: p.tralbum_id || undefined,
+                __raw: p,
+              }
+            }) || [],
+      }))
+      .filter(({ projects }) => projects.length > 0) || []
+  )
+}
 
 type ProjectData = NonNullable<
-  NonNullable<SiteQuery['site']['projects']>[number]
->['projects'][number]['project']
+  NonNullable<
+    NonNullable<NonNullable<SiteQuery['site']['projects']>[number]>['projects']
+  >[number]
+>['project']
 
 export interface Project {
   slug: string

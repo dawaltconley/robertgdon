@@ -175,7 +175,6 @@ export default defineConfig({
                 label: 'Projects',
                 name: 'projects',
                 list: true,
-                required: true,
                 ui: {
                   itemProps: (item) => {
                     return {
@@ -188,7 +187,6 @@ export default defineConfig({
                     type: 'reference',
                     label: 'Project',
                     name: 'project',
-                    required: true,
                     collections: ['project'],
                     ui: {
                       validate: (_value: string, data: Site) => {

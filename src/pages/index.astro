@@ -12,8 +12,11 @@ import { isNotEmpty } from '@lib/utils'
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
 
-const site = await client.queries.site({ relativePath: 'site.yml' })
-const { title, description, about, projects: projectSort } = site.data.site
+const [site, projects] = await Promise.all([
+  await client.queries.site({ relativePath: 'site.yml' }),
+  await client.queries.projectConnection(),
+])
+const { title, description, about } = site.data.site
 
 interface ImageData {
   path: string
@@ -29,17 +32,16 @@ const images: ImageData[] = [
     alt: 'headshot photo',
   },
 
-  ...(projectSort
-    ?.filter(isNotEmpty)
-    .map((c) => c.projects)
-    .flat()
-    .map<ImageData>(({ project: p }) => ({
-      path: p.image,
+  ...(projects.data.projectConnection.edges
+    ?.map((c) => c?.node)
+    .filter(isNotEmpty)
+    .map<ImageData>(({ image, media, title }) => ({
+      path: image,
       sizes:
-        p.media === 'page' // projects with this media type display a larger image
+        media === 'page' // projects with this media type display a larger image
           ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
           : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
-      alt: p.title,
+      alt: title,
     })) || []),
 ]
 
