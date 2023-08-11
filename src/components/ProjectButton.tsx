@@ -7,6 +7,7 @@ interface ProjectButtonProps {
   image: string | ImageProps
   handleClick: (slug: string | null) => void
   isActive?: boolean
+  isLast?: boolean
 }
 
 const ProjectButton = ({
@@ -15,12 +16,14 @@ const ProjectButton = ({
   image,
   handleClick,
   isActive,
+  isLast,
 }: ProjectButtonProps) => {
   return (
     <a
       href={`#${slug}`}
       className={classNames('group delay-500 duration-500', {
         'flip-x': isActive,
+        'preserve-3d': isActive || isLast,
       })}
       onClick={(e) => {
         e.preventDefault()

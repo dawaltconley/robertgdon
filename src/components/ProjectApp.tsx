@@ -179,11 +179,14 @@ const ProjectApp = ({
               (isCurrent || (isLast && !isReady)) && (
                 <Transition
                   key={p.slug}
-                  timeout={transition}
+                  timeout={transition + 100} // add 100ms buffer to ensure animation finished before unmount
                   onEnter={() => animating.current++}
                   onEntered={() => animating.current--}
                   onExit={() => animating.current++}
-                  onExited={() => animating.current--}
+                  onExited={() => {
+                    animating.current--
+                    setLast(undefined)
+                  }}
                 >
                   {(state) => {
                     let position: 'center' | 'left' | 'right'
@@ -264,7 +267,7 @@ const ProjectApp = ({
           })}
         </div>
 
-        <div className="contains-3d-deep grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
+        <div className="contains-3d grid grid-cols-2 gap-xs mobile:grid-cols-3 laptop:grid-cols-4 large:grid-cols-5">
           {categories[catIndex].projects.map((project) => {
             const image = responsiveImages[project.image] ?? project.image
             return (
@@ -272,6 +275,7 @@ const ProjectApp = ({
                 key={project.slug}
                 handleClick={handlePickProject}
                 isActive={project.slug === current?.slug}
+                isLast={project.slug === last?.slug}
                 {...project}
                 image={image}
               />

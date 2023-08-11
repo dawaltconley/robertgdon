@@ -2,12 +2,12 @@ $perspective: 2000px;
 
 @layer utilities {
   .contains-3d {
-    &,
-    &-deep {
-      perspective: $perspective;
-    }
+    perspective: $perspective;
+  }
 
-    &-deep * {
+  .preserve-3d {
+    &,
+    & * {
       transform-style: preserve-3d;
     }
   }
