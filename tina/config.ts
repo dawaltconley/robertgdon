@@ -176,6 +176,8 @@ export default defineConfig({
                 name: 'projects',
                 list: true,
                 ui: {
+                  description:
+                    "Projects that belong to this category. Categories won't show up unless they have at least one project.",
                   itemProps: (item) => {
                     return {
                       label: item.project ?? 'Select Project',
