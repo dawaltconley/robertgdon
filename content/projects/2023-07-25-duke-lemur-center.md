@@ -4,7 +4,7 @@ media: youtube
 published: true
 title: Duke Lemur Center
 link: 'https://www.youtube.com/watch?v=_Sc1y-A4Xqw'
-image: /media/GoogleBelonging.jpg
+image: /media/DukeLemur.jpg
 ---
 
-Recording Engineer for this Duke Lemur Center ad spot.
+Recording Engineer for this Duke Lemur Center ad spot featuring Monty Python's John Cleese.
