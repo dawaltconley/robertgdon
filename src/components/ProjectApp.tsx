@@ -45,10 +45,12 @@ const getCategories = ({ site }: SiteQuery): Category[] => {
                 __raw: p,
               }
             }) || [],
-      }))
-      .filter(({ projects }) => projects.length > 0) || []
+      })) || []
   )
 }
+
+const filterInvalid = (categories: Category[]): Category[] =>
+  categories.filter(({ projects }) => projects.length > 0)
 
 type ProjectData = NonNullable<
   NonNullable<
@@ -86,7 +88,7 @@ const ProjectApp = ({
   transition = 1000,
 }: ProjectAppProps) => {
   const { data } = useTina<SiteQuery>(site)
-  const categories = useMemo(() => getCategories(data), [data])
+  const categories = useMemo(() => filterInvalid(getCategories(data)), [data])
   const projectsFlat = useMemo(
     () => categories.map((c) => c.projects).flat(),
     [categories],
