@@ -37,9 +37,9 @@ projects:
   - category: Music
     projects:
       - project: content/projects/2018-09-04-threes.md
-      - project: content/projects/Safety-First.md
       - project: content/projects/Beating-Hearts.md
       - project: content/projects/2017-04-24-push-it-back.md
+      - project: content/projects/Safety-First.md
       - project: content/projects/2018-04-24-same-outfit.md
       - project: content/projects/Liquid-Lunch.md
       - project: content/projects/2017-09-12-the-whole.md
