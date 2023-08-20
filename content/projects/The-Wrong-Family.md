@@ -5,4 +5,4 @@ link: 'https://www.youtube.com/watch?v=j98Yhmh0hng'
 image: /media/TheWrongFamily.jpeg
 ---
 
-Recording engineer for *The Wrong Family.* Narrated by Lauren Fortgang.
+Recording Engineer for *The Wrong Family.* Narrated by Lauren Fortgang.
