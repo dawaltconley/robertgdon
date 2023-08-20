@@ -54,6 +54,7 @@ projects:
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
   - category: Audiobook
     projects:
+      - project: content/projects/Perish.md
       - project: content/projects/The-Wrong-Family.md
       - project: content/projects/Den-of-Thieves.md
       - project: content/projects/A-Deal-with-the-Elf-King.md
