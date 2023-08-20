@@ -19,6 +19,7 @@ project_heading: Projects
 projects:
   - category: Sound
     projects:
+      - project: content/projects/Living-Popups.md
       - project: content/projects/The-Shed.md
       - project: content/projects/2023-07-25-google-belonging.md
       - project: content/projects/2023-07-25-switch.md
