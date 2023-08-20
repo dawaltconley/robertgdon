@@ -19,7 +19,7 @@ project_heading: Projects
 projects:
   - category: Audiobook
     projects:
-      - {}
+      - project: content/projects/The-Wrong-Family.md
   - category: Sound
     projects:
       - project: content/projects/2023-07-25-switch.md
