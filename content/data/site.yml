@@ -53,4 +53,5 @@ projects:
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
   - category: Audiobook
     projects:
+      - project: content/projects/The-Lost-Swarm.md
       - project: content/projects/The-Wrong-Family.md
