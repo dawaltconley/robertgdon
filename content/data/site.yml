@@ -54,6 +54,7 @@ projects:
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
   - category: Audiobook
     projects:
+      - project: content/projects/Den-of-Thieves.md
       - project: content/projects/Fires-of-Olympus.md
       - project: content/projects/Forgotten-Ruin.md
       - project: content/projects/Where-Waters-Run-North.md
