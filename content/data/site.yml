@@ -32,6 +32,7 @@ projects:
       - project: content/projects/2017-04-24-the-once-and-future-nerd-book-2.md
   - category: Music
     projects:
+      - project: content/projects/Safety-First.md
       - project: content/projects/2017-04-24-push-it-back.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/2018-04-24-same-outfit.md
