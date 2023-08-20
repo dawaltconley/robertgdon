@@ -36,8 +36,7 @@ projects:
       - project: content/projects/2017-04-24-nightside.md
   - category: Music
     projects:
-      - project: >-
-          content/projects/2017-04-24-quintino-x-cheat-codes-cant-fight-it-kvlr-remix.md
+      - project: content/projects/2019-01-09-talk-to-u.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/Safety-First.md
       - project: content/projects/Beating-Hearts.md
@@ -54,6 +53,8 @@ projects:
       - project: content/projects/2017-04-24-honestly-honesty.md
       - project: content/projects/2017-04-24-be-mine.md
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
+      - project: >-
+          content/projects/2017-04-24-quintino-x-cheat-codes-cant-fight-it-kvlr-remix.md
   - category: Audiobook
     projects:
       - project: content/projects/The-Wrong-Family.md
