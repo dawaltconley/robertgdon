@@ -54,14 +54,14 @@ projects:
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
   - category: Audiobook
     projects:
-      - project: content/projects/Den-of-Thieves.md
-      - project: content/projects/Fires-of-Olympus.md
-      - project: content/projects/Forgotten-Ruin.md
-      - project: content/projects/Where-Waters-Run-North.md
       - project: content/projects/The-Wrong-Family.md
+      - project: content/projects/Den-of-Thieves.md
       - project: content/projects/A-Deal-with-the-Elf-King.md
+      - project: content/projects/Fires-of-Olympus.md
       - project: content/projects/Monroe-Doctrine.md
       - project: content/projects/Vorodins-Lair.md
+      - project: content/projects/Forgotten-Ruin.md
       - project: content/projects/The-Lost-Swarm.md
       - project: content/projects/86-Neon.md
+      - project: content/projects/Where-Waters-Run-North.md
       - project: content/projects/Taking-on-Lucinda.md
