@@ -19,7 +19,7 @@ project_heading: Projects
 projects:
   - category: Sound
     projects:
-      - project: content/projects/2017-04-24-nightside.md
+      - project: content/projects/2017-04-24-at-t-mobilizing-your-world.md
       - project: content/projects/2023-07-25-dell-businesses-we-love.md
       - project: content/projects/2023-07-25-switch.md
       - project: content/projects/AstraZeneca-WKOL.md
@@ -33,6 +33,7 @@ projects:
       - project: content/projects/2017-04-24-humanly-possible.md
       - project: content/projects/2018-09-04-queen-of-the-night.md
       - project: content/projects/2017-04-24-the-once-and-future-nerd-book-2.md
+      - project: content/projects/2017-04-24-nightside.md
   - category: Music
     projects:
       - project: content/projects/2018-09-04-threes.md
