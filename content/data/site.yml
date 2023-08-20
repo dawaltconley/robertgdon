@@ -54,7 +54,6 @@ projects:
       - project: content/projects/2017-04-24-pretend-we-re-friends.md
   - category: Audiobook
     projects:
-      - project: content/projects/Perish.md
       - project: content/projects/The-Wrong-Family.md
       - project: content/projects/Den-of-Thieves.md
       - project: content/projects/A-Deal-with-the-Elf-King.md
@@ -62,9 +61,10 @@ projects:
       - project: content/projects/Monroe-Doctrine.md
       - project: content/projects/Vorodins-Lair.md
       - project: content/projects/Deadly-Summer-Nights.md
-      - project: content/projects/Forgotten-Ruin.md
       - project: content/projects/Star-Keeper.md
+      - project: content/projects/Forgotten-Ruin.md
       - project: content/projects/The-Lost-Swarm.md
+      - project: content/projects/Perish.md
       - project: content/projects/86-Neon.md
       - project: content/projects/Hand-Over-His-Heart.md
       - project: content/projects/Where-Waters-Run-North.md
