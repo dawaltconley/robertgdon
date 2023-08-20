@@ -36,6 +36,8 @@ projects:
       - project: content/projects/2017-04-24-nightside.md
   - category: Music
     projects:
+      - project: >-
+          content/projects/2017-04-24-quintino-x-cheat-codes-cant-fight-it-kvlr-remix.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/Safety-First.md
       - project: content/projects/Beating-Hearts.md
@@ -46,9 +48,7 @@ projects:
       - project: content/projects/2017-04-24-quiet-pleas.md
       - project: content/projects/2017-04-24-slightly-elevated.md
       - project: content/projects/2017-04-24-no-excuses-wednesdays.md
-      - project: content/projects/2017-04-24-at-t-mobilizing-your-world.md
       - project: content/projects/2017-04-24-scram-jones.md
-      - project: content/projects/2017-04-24-nightside.md
       - project: content/projects/2017-04-24-liriope.md
       - project: content/projects/2017-04-24-we-really-ought-to-get-jobs.md
       - project: content/projects/2017-04-24-honestly-honesty.md
