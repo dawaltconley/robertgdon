@@ -36,6 +36,7 @@ projects:
       - project: content/projects/2017-04-24-nightside.md
   - category: Music
     projects:
+      - project: content/projects/Liquid-Lunch.md
       - project: content/projects/2019-01-09-talk-to-u.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/Safety-First.md
