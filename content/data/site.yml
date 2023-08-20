@@ -19,13 +19,13 @@ project_heading: Projects
 projects:
   - category: Sound
     projects:
+      - project: content/projects/2023-07-25-dell-businesses-we-love.md
+      - project: content/projects/2023-07-25-switch.md
       - project: content/projects/AstraZeneca-WKOL.md
-      - project: content/projects/Living-Popups.md
+      - project: content/projects/2023-07-25-duke-lemur-center.md
       - project: content/projects/The-Shed.md
       - project: content/projects/2023-07-25-google-belonging.md
-      - project: content/projects/2023-07-25-switch.md
-      - project: content/projects/2023-07-25-dell-businesses-we-love.md
-      - project: content/projects/2023-07-25-duke-lemur-center.md
+      - project: content/projects/Living-Popups.md
       - project: content/projects/2017-07-24-coppertone-tennis.md
       - project: content/projects/2017-08-03-coppertone-pool.md
       - project: content/projects/2018-09-04-queen-of-the-night.md
