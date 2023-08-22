@@ -122,10 +122,13 @@ const ProjectView = ({
               <ResponsiveImage
                 {...responsive}
                 className="duration-300 group-hover:blur-sm"
+                imgProps={{
+                  className: 'w-full',
+                }}
               />
             ) : (
               <img
-                className="group-hover:blur-sm"
+                className="w-full group-hover:blur-sm"
                 src={project.image}
                 alt={project.title}
               />
