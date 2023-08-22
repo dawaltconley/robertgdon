@@ -1,8 +1,37 @@
 import type { Site } from '@tina/__generated__/types'
 import { defineConfig } from 'tinacms'
+import { ProjectType } from '../src/lib/projects'
 import { isNotEmpty } from '../src/lib/utils'
 
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
+
+type MediaOption = {
+  value: ProjectType
+  label: string
+}
+
+const mediaOptions: MediaOption[] = [
+  {
+    value: 'bandcamp',
+    label: 'Bandcamp',
+  },
+  {
+    value: 'soundcloud',
+    label: 'Soundcloud',
+  },
+  {
+    value: 'youtube',
+    label: 'YouTube',
+  },
+  {
+    value: 'vimeo',
+    label: 'Vimeo',
+  },
+  {
+    value: 'page',
+    label: 'Web Page',
+  },
+]
 
 export default defineConfig({
   branch,
@@ -48,28 +77,7 @@ export default defineConfig({
             label: 'Media',
             name: 'media',
             required: true,
-            options: [
-              {
-                value: 'bandcamp',
-                label: 'Bandcamp',
-              },
-              {
-                value: 'soundcloud',
-                label: 'Soundcloud',
-              },
-              {
-                value: 'youtube',
-                label: 'YouTube',
-              },
-              {
-                value: 'vimeo',
-                label: 'Vimeo',
-              },
-              {
-                value: 'page',
-                label: 'Web Page',
-              },
-            ],
+            options: mediaOptions,
           },
           {
             type: 'string',
