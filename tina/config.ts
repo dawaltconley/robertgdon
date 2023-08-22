@@ -1,4 +1,4 @@
-import type { Site } from '@tina/__generated__/types'
+import type { Site } from './__generated__/types'
 import { defineConfig } from 'tinacms'
 import { ProjectType } from '../src/lib/projects'
 import { isNotEmpty } from '../src/lib/utils'
@@ -137,7 +137,7 @@ export default defineConfig({
             create: false,
             delete: false,
           },
-          router: ({ document }) => {
+          router: async ({ document }) => {
             if (document._sys.filename === 'site') return '/'
             return undefined
           },
@@ -202,10 +202,15 @@ export default defineConfig({
                       validate: (_value: string, data: Site) => {
                         const allProjects = data.projects
                           ?.filter(isNotEmpty)
-                          .map(({ projects, category }) =>
-                            projects.map((p) => category + '__' + p.project),
+                          .map(
+                            ({ projects, category }) =>
+                              projects?.map(
+                                (p) =>
+                                  p && p.project && category + '__' + p.project,
+                              ),
                           )
                           .flat()
+                          .filter(isNotEmpty)
                         if (
                           allProjects &&
                           allProjects.some(
