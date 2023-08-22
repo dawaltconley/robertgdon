@@ -104,7 +104,7 @@ const ProjectApp = ({
     history.replaceState({ project: slug }, '', `#${slug || ''}`)
 
     const selected = slug ? projects[slug] : undefined
-    setLast(selected && current)
+    setLast(current)
     setCurrent(selected)
     setIsReady(false) // should probably use setCurrent or setNext or something instead
     if (!selected) close()
@@ -161,7 +161,7 @@ const ProjectApp = ({
             const isCurrent = current && p.slug === current.slug
             const isLast = last && p.slug === last.slug
             return (
-              (isCurrent || (isLast && !isReady)) && (
+              (isCurrent || (isLast && current && !isReady)) && (
                 <Transition
                   key={p.slug}
                   timeout={transition + 100} // add 100ms buffer to ensure animation finished before unmount
