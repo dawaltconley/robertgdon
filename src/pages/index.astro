@@ -1,13 +1,15 @@
 ---
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import Layout from '@layouts/Base.astro'
 import Splash from '@components/Splash'
 import ProjectApp from '@components/ProjectApp'
 import Bio from '@components/Bio'
 import Footer from '@components/Footer.astro'
-
 import { getAllProjectsImageData } from '@lib/node/projects'
-import { makeResponsive, ImageData } from '@lib/node/images'
+import {
+  makeResponsive,
+  ImageData,
+  ResponsiveImageData,
+} from '@lib/node/images'
 
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
@@ -27,9 +29,7 @@ const images: ImageData[] = [
   ...(await getAllProjectsImageData()),
 ]
 
-const imageMetadata: Record<string, ImageMetadata> = await makeResponsive(
-  images,
-)
+const imageMetadata: ResponsiveImageData = await makeResponsive(images)
 ---
 
 <Layout
