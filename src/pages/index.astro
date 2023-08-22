@@ -5,11 +5,7 @@ import ProjectApp from '@components/ProjectApp'
 import Bio from '@components/Bio'
 import Footer from '@components/Footer.astro'
 import { getProjectImageData } from '@lib/node/projects'
-import {
-  makeResponsive,
-  ImageData,
-  ResponsiveImageData,
-} from '@lib/node/images'
+import { makeResponsive, ImageData } from '@lib/node/images'
 import { isNotEmpty } from '@lib/utils'
 
 import pick from 'lodash/pick'
@@ -36,7 +32,7 @@ const images: ImageData[] = [
   ...projectImages,
 ]
 
-const imageMetadata: ResponsiveImageData = await makeResponsive(images)
+const imageMetadata = await makeResponsive(images)
 ---
 
 <Layout

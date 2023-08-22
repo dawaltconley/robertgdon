@@ -1,26 +1,14 @@
-import type {
-  SiteQuery,
-  ProjectConnectionQuery,
-} from '@tina/__generated__/types'
+import type { ProjectConnectionQuery } from '@tina/__generated__/types'
+import type { ProjectData } from '@lib/projects'
 import type { ImageData } from './images'
 import { client } from '@tina/__generated__/client'
 import { isNotEmpty } from '@lib/utils'
-
-export type ProjectData = NonNullable<
-  NonNullable<
-    NonNullable<
-      NonNullable<
-        NonNullable<SiteQuery['site']['projects']>[number]
-      >['projects']
-    >[number]
-  >['project']
->
 
 export const getProjectImageData = ({
   image,
   media,
   title,
-}: NonNullable<ProjectData>): ImageData => ({
+}: ProjectData): ImageData => ({
   path: image,
   sizes:
     media === 'page' // projects with this media type display a larger image

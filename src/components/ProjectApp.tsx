@@ -1,5 +1,6 @@
 import type { SiteQuery } from '@tina/__generated__/types'
 import type { ImageProps } from './Image'
+import type { ResponsiveImageData } from '@lib/node/images'
 import ProjectView from './ProjectView'
 import ProjectButton from './ProjectButton'
 import { useState, useEffect, useRef, useMemo, memo } from 'react'
@@ -7,20 +8,26 @@ import { useTina, tinaField } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
+import { ProjectData, ProjectType, isProjectType } from '@lib/projects'
 import { isNotEmpty } from '@lib/utils'
 
-const ProjectType = [
-  'bandcamp',
-  'soundcloud',
-  'youtube',
-  'vimeo',
-  'page',
-] as const
+export interface Project {
+  slug: string
+  index: number
+  date?: string | Date
+  title: string
+  description: any
+  image: string
+  link: string | URL
+  type: ProjectType
+  tralbumId?: string
+  __raw: ProjectData
+}
 
-type ProjectType = (typeof ProjectType)[number]
-
-const isProjectType = (s: string): s is ProjectType =>
-  ProjectType.includes(s as ProjectType)
+export interface Category {
+  name: string
+  projects: Project[]
+}
 
 const getCategories = ({ site }: SiteQuery): Category[] => {
   let projectIndex = 0
@@ -52,33 +59,9 @@ const getCategories = ({ site }: SiteQuery): Category[] => {
 const filterInvalid = (categories: Category[]): Category[] =>
   categories.filter(({ projects }) => projects.length > 0)
 
-type ProjectData = NonNullable<
-  NonNullable<
-    NonNullable<NonNullable<SiteQuery['site']['projects']>[number]>['projects']
-  >[number]
->['project']
-
-export interface Project {
-  slug: string
-  index: number
-  date?: string | Date
-  title: string
-  description: any
-  image: string
-  link: string | URL
-  type: ProjectType
-  tralbumId?: string
-  __raw: NonNullable<ProjectData>
-}
-
-export interface Category {
-  name: string
-  projects: Project[]
-}
-
 interface ProjectAppProps {
   site: Parameters<typeof useTina<SiteQuery>>[0]
-  responsiveImages?: Record<string, ImageProps>
+  responsiveImages?: ResponsiveImageData
   transition?: number
 }
 
