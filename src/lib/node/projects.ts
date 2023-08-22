@@ -1,7 +1,33 @@
-import type { ProjectConnectionQuery } from '@tina/__generated__/types'
+import type {
+  SiteQuery,
+  ProjectConnectionQuery,
+} from '@tina/__generated__/types'
 import type { ImageData } from './images'
 import { client } from '@tina/__generated__/client'
 import { isNotEmpty } from '@lib/utils'
+
+export type ProjectData = NonNullable<
+  NonNullable<
+    NonNullable<
+      NonNullable<
+        NonNullable<SiteQuery['site']['projects']>[number]
+      >['projects']
+    >[number]
+  >['project']
+>
+
+export const getProjectImageData = ({
+  image,
+  media,
+  title,
+}: NonNullable<ProjectData>): ImageData => ({
+  path: image,
+  sizes:
+    media === 'page' // projects with this media type display a larger image
+      ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
+      : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
+  alt: title,
+})
 
 export const getProjectsImageData = ({
   projectConnection,
@@ -9,14 +35,7 @@ export const getProjectsImageData = ({
   projectConnection.edges
     ?.map((c) => c?.node)
     .filter(isNotEmpty)
-    .map<ImageData>(({ image, media, title }) => ({
-      path: image,
-      sizes:
-        media === 'page' // projects with this media type display a larger image
-          ? '(min-width: 2000px) 25vw, (min-width: 1000px) 455px, (min-width: 800px) 355px, (min-width: 600px) 540px, 100vw'
-          : '(min-width: 2000px) 18vw, (min-width: 1000px) 285px, (min-width: 600px) 318px, 89vw',
-      alt: title,
-    })) || []
+    .map(getProjectImageData) || []
 
 export const getAllProjectsImageData = async (
   after?: string,

@@ -4,20 +4,27 @@ import Splash from '@components/Splash'
 import ProjectApp from '@components/ProjectApp'
 import Bio from '@components/Bio'
 import Footer from '@components/Footer.astro'
-import { getAllProjectsImageData } from '@lib/node/projects'
+import { getProjectImageData } from '@lib/node/projects'
 import {
   makeResponsive,
   ImageData,
   ResponsiveImageData,
 } from '@lib/node/images'
+import { isNotEmpty } from '@lib/utils'
 
 import pick from 'lodash/pick'
 import { client } from '@tina/__generated__/client'
 
-const [site] = await Promise.all([
-  await client.queries.site({ relativePath: 'site.yml' }),
-])
+const site = await client.queries.site({ relativePath: 'site.yml' })
 const { title, description, about } = site.data.site
+
+const projectImages =
+  site.data.site.projects
+    ?.map((p) => p?.projects)
+    .flat()
+    .map((p) => p?.project)
+    .filter(isNotEmpty)
+    .map(getProjectImageData) || []
 
 const images: ImageData[] = [
   {
@@ -26,7 +33,7 @@ const images: ImageData[] = [
       '(min-width: 2000px) 25vw, (min-width: 1000px) 432px, (min-width: 800px) 334px, (min-width: 600px) 540px, 100vw',
     alt: 'headshot photo',
   },
-  ...(await getAllProjectsImageData()),
+  ...projectImages,
 ]
 
 const imageMetadata: ResponsiveImageData = await makeResponsive(images)
