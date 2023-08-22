@@ -68,7 +68,7 @@ export interface Project {
   link: string | URL
   type: ProjectType
   tralbumId?: string
-  __raw: ProjectData
+  __raw: NonNullable<ProjectData>
 }
 
 export interface Category {
