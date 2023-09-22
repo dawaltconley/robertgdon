@@ -1,5 +1,4 @@
 {
-  "include": ["src/**/*", "client-directives/client-directives.d.ts"],
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
