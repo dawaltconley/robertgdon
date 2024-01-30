@@ -1,4 +1,4 @@
-import Image, { ImageProps } from './Image'
+import Image, { type ImageProps } from './Image'
 import classNames from 'classnames'
 
 interface ProjectButtonProps {

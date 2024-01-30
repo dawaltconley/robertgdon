@@ -8,7 +8,11 @@ import { useTina, tinaField } from 'tinacms/dist/react'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import classNames from 'classnames'
 import pick from 'lodash/pick'
-import { ProjectData, ProjectType, isProjectType } from '@lib/projects'
+import {
+  type ProjectData,
+  type ProjectType,
+  isProjectType,
+} from '@lib/projects'
 import { isNotEmpty } from '@lib/utils'
 
 export interface Project {

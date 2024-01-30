@@ -1,5 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "exclude": ["dist", "public/admin", "tina/__generated__"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

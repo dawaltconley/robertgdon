@@ -1,10 +1,10 @@
 import type { Project } from './ProjectApp'
 import ProjectEmbed from './ProjectEmbed'
-import ResponsiveImage, { ImageProps } from './Image'
+import ResponsiveImage, { type ImageProps } from './Image'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { drawToCanvas } from '@lib/browser/drawToCanvas'
 import classNames from 'classnames'
-import { useEffect, useRef, RefObject } from 'react'
+import { useEffect, useRef, type RefObject } from 'react'
 import { tinaField } from 'tinacms/dist/react'
 import throttle from 'lodash/throttle'
 
@@ -37,7 +37,7 @@ const ProjectView = ({
   const canvas = useRef<HTMLCanvasElement>(null)
   const body = projectRef || useRef<HTMLDivElement>(null)
   const content = useRef<HTMLDivElement>(null)
-  const image = useRef<HTMLImageElement>(new Image())
+  const image = useRef<HTMLImageElement>(null)
   const responsive = responsiveImages[project.image]
 
   const hasColumns = project.type !== 'youtube' && project.type !== 'vimeo'
@@ -48,10 +48,10 @@ const ProjectView = ({
   }
 
   useEffect(() => {
-    const img = image.current
+    const img = image.current || new window.Image()
     const drawBackground = () => {
       if (!canvas.current || !body.current || !content.current) return onReady()
-      drawToCanvas(canvas.current, body.current, content.current, image.current)
+      drawToCanvas(canvas.current, body.current, content.current, img)
       onReady()
       onHeightChange(content.current.scrollHeight)
     }

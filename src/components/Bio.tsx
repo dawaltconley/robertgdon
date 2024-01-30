@@ -1,7 +1,7 @@
 import type { SiteQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
-import Image, { ImageProps } from './Image'
+import Image, { type ImageProps } from './Image'
 import '@styles/_bio.scss'
 
 interface BioProps {
