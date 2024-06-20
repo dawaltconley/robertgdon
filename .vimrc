@@ -19,3 +19,8 @@ let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 
 source ~/.vim/coc.vim
+
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
