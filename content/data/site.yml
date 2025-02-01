@@ -1,6 +1,6 @@
 url: 'https://www.robertgdon.com'
 title: Robert Don
-description: ' '
+description: audio post
 project_heading: Projects
 projects:
   - category: Sound
@@ -70,7 +70,7 @@ about:
 
     possible, you can find him walking through Prospect Park or perfecting
 
-    his kimchi recipe. 
+    his kimchi recipe.
   image: /media/headshot.jpg
 contact:
   - icon: email
