@@ -53,13 +53,22 @@ projects:
       - project: content/projects/Where-Waters-Run-North.md
       - project: content/projects/Taking-on-Lucinda.md
 about:
-  title: About me
-  bio: |
+  title: About Me
+  bio: >
     Robert is an audio professional based out of Brooklyn, New York offering
+    sound design,
+
     production, engineering, editing, mixing, and music composition services.
+    His work has appeared at Sundance, the Chicago International Film Festival,
+    NewFest, and more. His work has also been nominated for Webby and Addy
+    awards. 
+
+
     When he’s not hunched over his computer working on achieving the best sounds
+
     possible, you can find him walking through Prospect Park or perfecting
-    recipes in the kitchen. Get in touch below!
+
+    his kimchi recipe. Get in touch below!
   image: /media/headshot.jpg
 contact:
   - icon: email
