@@ -1,7 +1,7 @@
 ---
 title: Beating Hearts
 media: youtube
-link: 'https://youtu.be/bbJSjN2M4CA'
+link: 'https://www.youtube.com/watch?v=T0sONCosTPU'
 image: /media/BeatingHearts.jpeg
 ---
 
