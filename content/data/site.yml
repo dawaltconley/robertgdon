@@ -15,7 +15,7 @@ projects:
       - project: content/projects/2017-04-24-the-once-and-future-nerd-book-2.md
   - category: Music
     projects:
-      - {}
+      - project: content/projects/2017-04-24-nightside.md
       - project: content/projects/2017-07-24-coppertone-tennis.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/Beating-Hearts.md
