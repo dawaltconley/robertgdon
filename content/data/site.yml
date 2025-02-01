@@ -7,7 +7,7 @@ projects:
     projects:
       - {}
       - {}
-      - {}
+      - project: content/projects/Hot-Seat.md
       - project: content/projects/2023-07-25-dell-businesses-we-love.md
       - project: content/projects/2023-07-25-switch.md
       - project: content/projects/AstraZeneca-WKOL.md
@@ -64,7 +64,7 @@ about:
     production, engineering, editing, mixing, and music composition services.
     His work has appeared at Sundance, the Chicago International Film Festival,
     NewFest, and more. His work has also been nominated for Webby and Addy
-    awards. 
+    awards.
 
 
     When he’s not hunched over his computer working on achieving the best sounds
