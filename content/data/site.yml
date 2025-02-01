@@ -15,8 +15,7 @@ projects:
       - project: content/projects/2017-04-24-the-once-and-future-nerd-book-2.md
   - category: Music
     projects:
-      - project: content/projects/2017-04-24-nightside.md
-      - project: content/projects/2017-07-24-coppertone-tennis.md
+      - project: content/projects/2017-08-03-coppertone-pool.md
       - project: content/projects/2018-09-04-threes.md
       - project: content/projects/Beating-Hearts.md
       - project: content/projects/2017-04-24-push-it-back.md
@@ -25,6 +24,8 @@ projects:
       - project: content/projects/2018-04-24-same-outfit.md
       - project: content/projects/Liquid-Lunch.md
       - project: content/projects/2017-09-12-the-whole.md
+      - project: content/projects/2017-07-24-coppertone-tennis.md
+      - project: content/projects/2017-04-24-nightside.md
       - project: content/projects/2017-04-24-voice-memos.md
       - project: content/projects/2017-04-24-quiet-pleas.md
       - project: content/projects/2017-04-24-slightly-elevated.md
