@@ -5,6 +5,9 @@ project_heading: Projects
 projects:
   - category: Sound
     projects:
+      - {}
+      - {}
+      - {}
       - project: content/projects/2023-07-25-dell-businesses-we-love.md
       - project: content/projects/2023-07-25-switch.md
       - project: content/projects/AstraZeneca-WKOL.md
