@@ -7,8 +7,8 @@ projects:
     projects:
       - project: content/projects/Jean-Jacket.md
       - project: content/projects/Hold-Me-Close.md
-      - project: content/projects/About-Time.md
       - project: content/projects/Hot-Seat.md
+      - project: content/projects/About-Time.md
       - project: content/projects/2023-07-25-dell-businesses-we-love.md
       - project: content/projects/Measures-for-Justice.md
       - project: content/projects/Fuse-Technical-Group.md
