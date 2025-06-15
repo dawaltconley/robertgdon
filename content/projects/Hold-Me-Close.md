@@ -6,4 +6,4 @@ link: 'https://www.youtube.com/watch?v=uQw6Kp4w4bo'
 image: /media/IMG_6717.PNG
 ---
 
-Dialogue Editor for Hold Me Close, a Sundance 2025 Nominee for the Short Film Grand Jury Prize.
+A chronicle of the power and complexity of the relationship between Corinne and Tiana, two Queer Black womxn who experience cycles of life’s joys and pains together in the home they share. Dialogue Editor for Hold Me Close, a Sundance 2025 Nominee for the Short Film Grand Jury Prize.
