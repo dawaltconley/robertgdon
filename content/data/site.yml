@@ -5,6 +5,7 @@ project_heading: Projects
 projects:
   - category: Sound
     projects:
+      - project: content/projects/Jean-Jacket.md
       - project: content/projects/Hold-Me-Close.md
       - project: content/projects/About-Time.md
       - project: content/projects/Hot-Seat.md
