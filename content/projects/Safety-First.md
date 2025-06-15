@@ -1,8 +1,8 @@
 ---
 title: Safety First
-media: youtube
-link: 'https://www.youtube.com/watch?v=qYNsF3leK58'
+media: vimeo
+link: 'https://vimeo.com/307440063?share=copy'
 image: /media/Safety-First-3-huge.jpg
 ---
 
-Producer, mixer, writer, and performer for More Tongues Than Teeth's single. 
+Producer, mixer, writer, and performer for More Tongues Than Teeth's single.
