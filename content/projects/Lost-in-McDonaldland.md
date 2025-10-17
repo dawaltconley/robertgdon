@@ -2,8 +2,7 @@
 title: Lost in McDonaldland
 date: 2025-10-17T04:00:00.000Z
 media: youtube
-link: >-
-  https://www.youtube.com/watch?v=aqO_Zw4bkrI&list=PLKkYatWHDPatO8PEuV7y2EoCEv1f-V3ce&index=1
+link: 'https://www.youtube.com/watch?v=fXvEvcTGNPM'
 image: /media/McD.jpg
 ---
 
