@@ -2,7 +2,7 @@
 title: Hold Me Close
 date: 2025-02-01T05:00:00.000Z
 media: youtube
-link: 'https://www.youtube.com/watch?v=uQw6Kp4w4bo'
+link: 'https://www.youtube.com/watch?v=NilGB0X17d0'
 image: /media/IMG_6717.PNG
 ---
 
