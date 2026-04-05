@@ -1,9 +1,9 @@
 ---
-date: 2023-07-25T00:00:00.000Z
-media: youtube
 published: true
 title: Dell
-link: 'https://www.youtube.com/watch?v=5kUw24b_pcA'
+date: 2023-07-25T00:00:00.000Z
+media: youtube
+link: 'https://www.youtube.com/playlist?list=PL2nlzNk2-VMHnFloAHSJYa2xXsT-i8U6-'
 image: /media/project-images/Dell.jpg
 ---
 
