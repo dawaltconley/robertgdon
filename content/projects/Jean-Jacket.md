@@ -1,8 +1,8 @@
 ---
 title: Jean Jacket
 date: 2025-06-13T04:00:00.000Z
-media: vimeo
-link: 'https://player.vimeo.com/video/1078469160'
+media: youtube
+link: 'https://www.youtube.com/watch?v=U4eNunU-NFs'
 image: /media/JeanJacket.png
 ---
 
